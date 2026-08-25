@@ -1,0 +1,430 @@
+{
+  "artifacts": {
+    "action_sha256": "4e5652640221bdb74c1b7e08d34c1d9b85f15dcc4922106cead2dd2bb8cd4ced",
+    "agent_course_sha256": "69cc4d3684baf23d32df1dc8ce4507b57c2892639e079f1fd65644c965ed9d5c",
+    "agent_manifest_sha256": "1effbd7b6a006773b9db945d2d694740e6c895c0829fe91238391b50f5b60607",
+    "controller_config_sha256": "4e509fa63fda52e38d21d9f1924b7c0d6bf9dfd1c2d9b94450b7f6e7ca281329",
+    "course_sha256": "69cc4d3684baf23d32df1dc8ce4507b57c2892639e079f1fd65644c965ed9d5c",
+    "foundation_spec_sha256": "1a9764a30ccfc4e5307a7a8f3940a7ba07be7dbc4f820f3a2a693f49b010ddf6",
+    "model_tree_sha256": "12c7d68fabc0f24e7ce5ed46697cc41ccdce41eebe464b87201179a3b0a0136a",
+    "model_xml_sha256": "2bee8abddbf4bc093bcdb2266c7139cd1c78e279bf65f7ee9fde41fe599900d4",
+    "observation_sha256": "c24f6e9148375e763f1d046fca7face55437d116632937fd54c42af81ccad9ee",
+    "policy_sha256": "44a0fbceb81f3877833ae9a398d039bea1759cb0d3c8188181013885f70589eb",
+    "reset_profile_sha256": "0e3013f153ffb542eef55375f80455257e4461969c265a7d32ee49420e104d85",
+    "runtime_sha256": "b8ef73af72ad8f7156a606374a5b3688cc9fa38807e30335d323912f51236840",
+    "scene_sha256": "88ffcccad2c5df71a7472b4b30ec7e4ea06e045efc6b4e11ccd8bebc2848f0b3"
+  },
+  "candidate": {
+    "agent": "exo.agent.scripted-baseline.v0.1",
+    "course": "AGENT-001@1.0.0",
+    "runtime": "exo.agent.runtime.v1"
+  },
+  "determinism": {
+    "claim": "Repeated execution with identical source, artifacts, dependency lock, runtime, architecture, scenario seed, reset profile, agent, and contracts produces the same canonical Agent episode digest.",
+    "class": "EXACT-SAME-RUNTIME",
+    "digest_schema": "exo.agent-episode-digest.v1",
+    "wall_clock_agent_latency_excluded": true
+  },
+  "environment": {
+    "dependency_lock": {
+      "path": "uv.lock",
+      "sha256": "2a0a33981f43153fe93222000a998394d1d93544b4d8427d9de7abd8642a2fc3"
+    },
+    "machine": "arm64",
+    "mujoco": "3.3.6",
+    "numpy": "2.2.6",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "processor": "arm",
+    "python": "3.12.11",
+    "torch": "2.7.1",
+    "torch_deterministic_algorithms": true,
+    "torch_num_interop_threads": 1,
+    "torch_num_threads": 1
+  },
+  "exo_bench": {
+    "commit": "2d99405c53e46c6b0b3f6508e20f12bca229d946",
+    "dirty": false,
+    "source_tree_sha256": "54365fe90d563b42f740c16d184963e9097dacb18f718835a610989ea454405c"
+  },
+  "foundation": {
+    "candidate": {
+      "controller": "exo.h1.velocity.v1",
+      "robot": "exo.h1-locomotion.v1"
+    },
+    "expected_receipt_sha256": "6466122438bb6568bb381acccf17f05703ab3923ed49a04d71a2946b5437ffc3",
+    "qualified": true,
+    "receipt": "benchmark/qualification/exo-h1-locomotion-foundation-v1.qualification.json",
+    "receipt_hash_matches": true,
+    "receipt_sha256": "6466122438bb6568bb381acccf17f05703ab3923ed49a04d71a2946b5437ffc3"
+  },
+  "foundation_checks": {
+    "all_agent_gates_pass": true,
+    "external_model_api_count": 0,
+    "foundation_receipt_hash_matches": true,
+    "foundation_receipt_qualified": true,
+    "runtime_determinism_controls_pinned": true,
+    "source_worktree_clean": true
+  },
+  "gates": [
+    {
+      "evidence": {
+        "hashes": {
+          "action_sha256": "4e5652640221bdb74c1b7e08d34c1d9b85f15dcc4922106cead2dd2bb8cd4ced",
+          "agent_manifest_sha256": "1effbd7b6a006773b9db945d2d694740e6c895c0829fe91238391b50f5b60607",
+          "observation_sha256": "c24f6e9148375e763f1d046fca7face55437d116632937fd54c42af81ccad9ee",
+          "runtime_sha256": "b8ef73af72ad8f7156a606374a5b3688cc9fa38807e30335d323912f51236840"
+        },
+        "runtime": {
+          "action_contract": "exo.agent.action.v1",
+          "action_limits": {
+            "forward_mps": [
+              -0.75,
+              0.75
+            ],
+            "lateral_mps": [
+              -0.25,
+              0.25
+            ],
+            "yaw_rate_rps": [
+              -0.6,
+              0.6
+            ]
+          },
+          "decision_interval_s": 0.2,
+          "invalid_action_behavior": "reject_to_safe_stop",
+          "observation_contract": "exo.agent.observation.v1",
+          "scheduler": "simulated_time_paused",
+          "schema_version": "exo.agent.runtime.v1"
+        }
+      },
+      "id": "AQ-001-contract-integrity",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "action_fields": [
+          "forward_mps",
+          "lateral_mps",
+          "schema_version",
+          "type",
+          "yaw_rate_rps"
+        ],
+        "environment_internals": false,
+        "low_level_joint_or_torque_control": false,
+        "network_access": false,
+        "observation_fields": [
+          "base_position_m",
+          "heading_yaw_rad",
+          "planar_velocity_mps",
+          "previous_applied_action",
+          "remaining_time_s",
+          "schema_version",
+          "simulation_time_s",
+          "task"
+        ]
+      },
+      "id": "AQ-002-public-boundary",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "decision_interval_s": 0.2,
+        "low_level_steps_per_decision": 10,
+        "measured_fixture_wall_latency_ms": 4.0,
+        "policy_control_period_s": 0.02,
+        "wall_latency_affects_physics": false
+      },
+      "id": "AQ-003-simulated-time-scheduler",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "case_count": 5,
+        "cases": [
+          {
+            "agent_decision_count": 37,
+            "clamped_action_count": 0,
+            "deterministic": true,
+            "digest": "24fe3e766b7aaa9ea3a42e1470707816d8e05e02d02a38e22d65359b83f8e95e",
+            "energy_joules": 548.2269696083453,
+            "episode_passed": true,
+            "falls": 0,
+            "final_heading_error_rad": 0.13898657353325886,
+            "final_position_error_m": 0.49932115143929756,
+            "final_speed_mps": 0.16265535955500585,
+            "final_window_average_speed_mps": 0.17399096226808342,
+            "path_length_m": 2.8446554844248717,
+            "reason": "complete",
+            "rejected_action_count": 0,
+            "repeat_digest": "24fe3e766b7aaa9ea3a42e1470707816d8e05e02d02a38e22d65359b83f8e95e",
+            "reset_perturbation": {
+              "base_xy_m": [
+                0.0005478467492858173,
+                -0.0009208531449445187
+              ],
+              "base_yaw_rad": -0.0045902647606380536,
+              "joint_position_rad": [
+                -0.0019338894578858836,
+                0.0012530809568010897,
+                0.0016510223091108869,
+                0.00042654310306871945,
+                0.0009179862439359937,
+                0.0001744999658616915,
+                0.0017402896951510729,
+                0.0012634142164861287,
+                -0.0019890459993194077,
+                0.0014296171063502773
+              ]
+            },
+            "scenario": {
+              "goal_heading_rad": 0.0,
+              "seed": 0,
+              "start_heading_rad": 0.0,
+              "target_position_m": [
+                3.0,
+                0.0
+              ]
+            },
+            "seed": 0,
+            "simulated_completion_time_s": 7.319999999999416,
+            "status": "PASS"
+          },
+          {
+            "agent_decision_count": 39,
+            "clamped_action_count": 0,
+            "deterministic": true,
+            "digest": "15f91435e01d69b5c1602a4b95a0df6610e61cc1e7697acde56b29b79f3db833",
+            "energy_joules": 572.9319399985101,
+            "episode_passed": true,
+            "falls": 0,
+            "final_heading_error_rad": 0.13443939579092576,
+            "final_position_error_m": 0.4922934392203768,
+            "final_speed_mps": 0.16381289720497208,
+            "final_window_average_speed_mps": 0.17483609479179768,
+            "path_length_m": 3.017683287335817,
+            "reason": "complete",
+            "rejected_action_count": 0,
+            "repeat_digest": "15f91435e01d69b5c1602a4b95a0df6610e61cc1e7697acde56b29b79f3db833",
+            "reset_perturbation": {
+              "base_xy_m": [
+                4.7286498801026864e-05,
+                0.0018018547853037412
+              ],
+              "base_yaw_rad": -0.0035584038728036626,
+              "joint_position_rad": [
+                0.0017945977885489755,
+                -0.0007526741919580582,
+                -0.0003066942041096974,
+                0.001310810375281767,
+                -0.0003632034545233549,
+                0.000198374750692238,
+                -0.0018897635470277265,
+                0.0010140524346992264,
+                0.0001525732528771129,
+                -0.0006810731340036314
+              ]
+            },
+            "scenario": {
+              "goal_heading_rad": 0.3217505543966422,
+              "seed": 1,
+              "start_heading_rad": 0.35,
+              "target_position_m": [
+                3.0,
+                1.0
+              ]
+            },
+            "seed": 1,
+            "simulated_completion_time_s": 7.699999999999374,
+            "status": "PASS"
+          },
+          {
+            "agent_decision_count": 39,
+            "clamped_action_count": 0,
+            "deterministic": true,
+            "digest": "99e3e4fb786eabc6e6f2a334029fd6ef1d30b3f805a2b7fcbf8054588e8ee68c",
+            "energy_joules": 574.3897834112214,
+            "episode_passed": true,
+            "falls": 0,
+            "final_heading_error_rad": 0.143996029509234,
+            "final_position_error_m": 0.4965589002397646,
+            "final_speed_mps": 0.1625418497067157,
+            "final_window_average_speed_mps": 0.17539070780749086,
+            "path_length_m": 3.0179917697244614,
+            "reason": "complete",
+            "rejected_action_count": 0,
+            "repeat_digest": "99e3e4fb786eabc6e6f2a334029fd6ef1d30b3f805a2b7fcbf8054588e8ee68c",
+            "reset_perturbation": {
+              "base_xy_m": [
+                -0.0009535514630027344,
+                -0.0008060354263435068
+              ],
+              "base_yaw_rad": 0.003142257405942803,
+              "joint_position_rad": [
+                -0.0016323362314596124,
+                0.000400402103862616,
+                0.0009142421072471785,
+                -0.0012483957065335862,
+                -0.0017794134906677272,
+                -0.0009001225283758476,
+                0.0006297320595023703,
+                0.000249062651121712,
+                -0.0013997509467786556,
+                -0.0002694768367808513
+              ]
+            },
+            "scenario": {
+              "goal_heading_rad": -0.3217505543966422,
+              "seed": 2,
+              "start_heading_rad": -0.35,
+              "target_position_m": [
+                3.0,
+                -1.0
+              ]
+            },
+            "seed": 2,
+            "simulated_completion_time_s": 7.699999999999374,
+            "status": "PASS"
+          },
+          {
+            "agent_decision_count": 36,
+            "clamped_action_count": 0,
+            "deterministic": true,
+            "digest": "0902f9b5f91625b9c9e6073c0eed2e35e514e09522176f74bedc61d2c259eb93",
+            "energy_joules": 527.9334730840211,
+            "episode_passed": true,
+            "falls": 0,
+            "final_heading_error_rad": 0.1032331077069002,
+            "final_position_error_m": 0.4817433783798466,
+            "final_speed_mps": 0.11367971396575814,
+            "final_window_average_speed_mps": 0.17720275692355986,
+            "path_length_m": 2.725431050229083,
+            "reason": "complete",
+            "rejected_action_count": 0,
+            "repeat_digest": "0902f9b5f91625b9c9e6073c0eed2e35e514e09522176f74bedc61d2c259eb93",
+            "reset_perturbation": {
+              "base_xy_m": [
+                -0.0016574033314255025,
+                -0.0010527579736156012
+              ],
+              "base_yaw_rad": 0.003012744652063969,
+              "joint_position_rad": [
+                0.00032864814425747116,
+                -0.0016234854310384034,
+                -0.0002674922390541048,
+                -8.37948074366639e-05,
+                -0.0013610443414516858,
+                0.0009383086056368582,
+                -0.0015453119203143863,
+                -0.00043508723801735183,
+                6.69607304854547e-05,
+                -0.0002774879183432888
+              ]
+            },
+            "scenario": {
+              "goal_heading_rad": 0.5404195002705842,
+              "seed": 3,
+              "start_heading_rad": 0.85,
+              "target_position_m": [
+                2.5,
+                1.5
+              ]
+            },
+            "seed": 3,
+            "simulated_completion_time_s": 7.0599999999994445,
+            "status": "PASS"
+          },
+          {
+            "agent_decision_count": 36,
+            "clamped_action_count": 0,
+            "deterministic": true,
+            "digest": "9abe4d97a801246349461cbe7d9610750fefd10c8c3f013e454628e91ef3797b",
+            "energy_joules": 547.8500535971448,
+            "episode_passed": true,
+            "falls": 0,
+            "final_heading_error_rad": 0.14147139727258995,
+            "final_position_error_m": 0.49259524008172345,
+            "final_speed_mps": 0.1155367794308191,
+            "final_window_average_speed_mps": 0.1794906598811017,
+            "path_length_m": 2.7290730718111895,
+            "reason": "complete",
+            "rejected_action_count": 0,
+            "repeat_digest": "9abe4d97a801246349461cbe7d9610750fefd10c8c3f013e454628e91ef3797b",
+            "reset_perturbation": {
+              "base_xy_m": [
+                0.0017722244222894705,
+                4.531021125744639e-05
+              ],
+              "base_yaw_rad": 0.0047624370570770415,
+              "joint_position_rad": [
+                -0.0016766559044175914,
+                0.0004294233279801185,
+                -0.0004940536624909097,
+                0.001207604827943229,
+                -0.0013018887354238862,
+                0.0014865410967506256,
+                0.00017576560305399268,
+                0.0016088603188639534,
+                -9.138590464317487e-05,
+                -0.0002780148890823475
+              ]
+            },
+            "scenario": {
+              "goal_heading_rad": -0.5404195002705842,
+              "seed": 4,
+              "start_heading_rad": -0.85,
+              "target_position_m": [
+                2.5,
+                -1.5
+              ]
+            },
+            "seed": 4,
+            "simulated_completion_time_s": 7.0599999999994445,
+            "status": "PASS"
+          }
+        ],
+        "course": "AGENT-001@1.0.0"
+      },
+      "id": "AQ-004-scenario-matrix",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "class": "EXACT-SAME-RUNTIME",
+        "digest_schema": "exo.agent-episode-digest.v1",
+        "digests": [
+          "24fe3e766b7aaa9ea3a42e1470707816d8e05e02d02a38e22d65359b83f8e95e",
+          "15f91435e01d69b5c1602a4b95a0df6610e61cc1e7697acde56b29b79f3db833",
+          "99e3e4fb786eabc6e6f2a334029fd6ef1d30b3f805a2b7fcbf8054588e8ee68c",
+          "0902f9b5f91625b9c9e6073c0eed2e35e514e09522176f74bedc61d2c259eb93",
+          "9abe4d97a801246349461cbe7d9610750fefd10c8c3f013e454628e91ef3797b"
+        ],
+        "repeat_each": true,
+        "wall_clock_agent_latency_excluded": true
+      },
+      "id": "AQ-005-exact-same-runtime-determinism",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "agent_decisions": 37,
+        "archive_receipt": "AGENT-001-seed-0.exorun.sha256",
+        "archive_receipt_verified": true,
+        "archive_sha256": "663b0a0bb0bb54d85e696b276d334decfabed27f1335da47672a9f88c9025a2e",
+        "digest": "24fe3e766b7aaa9ea3a42e1470707816d8e05e02d02a38e22d65359b83f8e95e",
+        "path": "benchmark/qualification/evidence/AGENT-001-seed-0.exorun",
+        "samples": 366,
+        "schema_version": "exo.run.v2",
+        "verified_payloads": 15
+      },
+      "id": "AQ-006-replay-integrity",
+      "status": "PASS"
+    }
+  ],
+  "qualification_spec": {
+    "id": "exo.agent-v0.1.qualification.v1",
+    "sha256": "b5e9a1a1e444239ed7caa7300d9d199f945d3f8cbb660b0c4187f4876aeedd7e",
+    "version": "1.0.0"
+  },
+  "qualified": true,
+  "schema_version": "exo.agent-qualification.v1"
+}
