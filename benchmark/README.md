@@ -2,8 +2,9 @@
 
 EXO Bench is the native, authoritative benchmark runtime that complements the
 browser-based Assisted Lab. It runs a pinned free-base Unitree H1 model and a
-matching pinned locomotion policy in native MuJoCo. No model API, secret, or
-network service is part of this milestone.
+matching pinned locomotion policy in native MuJoCo. EXO Agent v0.1 adds a
+scripted navigation agent over a public high-level contract. No external model
+API, secret, or remote inference service is part of this milestone.
 
 ## Setup
 
@@ -40,6 +41,39 @@ uv run exo-bench qualify \
   --evidence-dir benchmark/qualification/evidence
 ```
 
+Run the first Agent benchmark and write a strict v2 replay:
+
+```bash
+uv run exo-bench agent run \
+  --course agent-navigation \
+  --agent exo.agent.scripted-baseline.v0.1 \
+  --seed 0 \
+  --record AGENT-001-seed-0.exorun \
+  --verify-determinism
+```
+
+Run Agent v0.1 qualification:
+
+```bash
+uv run exo-bench agent qualify \
+  --output benchmark/qualification/agent-v0.1/qualification.json \
+  --evidence-dir benchmark/qualification/evidence
+```
+
+For localhost visualization, open the browser app in EXO Bench Live mode, then
+run:
+
+```bash
+uv run exo-bench agent run \
+  --seed 0 \
+  --record live-agent.exorun \
+  --live-port 8765
+```
+
+The read-only Server-Sent Events endpoint is
+`http://127.0.0.1:8765/events`. It accepts no browser control messages. The
+native runner remains authoritative.
+
 Qualification fails closed when the source worktree is dirty. The committed
 receipt binds the frozen implementation commit; it is generated only after the
 implementation and qualification specification have been committed.
@@ -58,6 +92,20 @@ unassisted free-base locomotion benchmark foundation, not full 19-DoF H1
 whole-body control, manipulation, sim-to-real transfer, or robot-hardware
 validation.
 
+## EXO Agent v0.1 boundary
+
+The Agent division owns three hash-bound contracts under
+`benchmark/agent_contracts`: `exo.agent.observation.v1` exposes privileged
+navigation state only; `exo.agent.action.v1` permits bounded forward, lateral,
+and yaw velocity commands; and `exo.agent.runtime.v1` freezes the paused
+simulated-time scheduler.
+
+Malformed or nonfinite actions deterministically become a safe stop. Finite
+out-of-range actions are clamped, with requested and applied values recorded
+separately. Agents never receive MuJoCo objects, low-level joint state, torque
+control, or the qualified policy observation. `ScriptedBaselineAgent` uses only
+the serialized public observation.
+
 ## Replay contract
 
 `.exorun` is a ZIP-compatible research artifact containing:
@@ -71,7 +119,9 @@ validation.
 Every generated archive also has an external `result.exorun.sha256` sidecar.
 Internal hashes protect the declared payloads; the external hash binds the ZIP
 archive as a whole. The v1 parser requires the complete payload set, exact
-array dimensions, and no unexpected ZIP entries.
+array dimensions, and no unexpected ZIP entries. Agent runs use the strict
+additive `exo.run.v2` contract: every v1 payload plus Agent observations,
+requested/applied decisions with latency, and recorded 13-link body poses.
 
 All numeric arrays use row-major little-endian float32. Their dimensions are
 declared in the corresponding `index.json`. A viewer must play recorded state;
@@ -82,6 +132,10 @@ contacts, `qpos`, `qvel`, and key-sorted canonical events. Its claim is
 `EXACT-SAME-RUNTIME`: identical source, artifacts, frozen dependency lock,
 runtime, architecture, seed, and reset profile must reproduce the exact digest.
 Cross-platform bitwise equality is not claimed.
+
+Agent v2 digests additionally bind public Agent observations, decisions with
+wall-clock latency removed, and recorded body poses. Latency remains in the
+archive and metrics but cannot change standard-track physics or the digest.
 
 ## Foundation v1 qualification
 
@@ -101,9 +155,12 @@ The qualification specification is
 - `collisions: null` until a course uses a real contact classifier. Zero is
   reserved for a measured zero count.
 
-This qualifies only the stated locomotion foundation. It does not qualify an AI
-agent interface, obstacle-course collision semantics, whole-body control,
-hardware transfer, or a public leaderboard.
+This qualifies only the stated locomotion foundation. The separate Agent v0.1
+qualification binds AGENT-001, its five explicit scenarios, the scripted agent,
+the public contracts, scheduler semantics, exact-same-runtime digests, and a
+strict v2 replay. Neither qualification claims obstacle collision semantics,
+vision, external model behavior, whole-body control, hardware transfer, or a
+public leaderboard.
 
 ## Third-party artifacts
 

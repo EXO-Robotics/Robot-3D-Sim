@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exo-robotics.github.io/Robot-3D-Sim/schemas/exo-live-v1.schema.json",
+  "title": "EXO localhost visualization protocol v1",
+  "oneOf": [
+    { "$ref": "#/$defs/hello" },
+    { "$ref": "#/$defs/frame" },
+    { "$ref": "#/$defs/complete" },
+    { "$ref": "#/$defs/error" }
+  ],
+  "$defs": {
+    "base": {
+      "type": "object",
+      "properties": {
+        "schema_version": { "const": "exo.live.v1" },
+        "type": { "type": "string" }
+      },
+      "required": ["schema_version", "type"]
+    },
+    "hello": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "properties": { "type": { "const": "hello" }, "run": { "type": "object" } },
+          "required": ["run"]
+        }
+      ]
+    },
+    "frame": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "properties": {
+            "type": { "const": "frame" },
+            "sequence": { "type": "integer", "minimum": 0 },
+            "simulation_time": { "type": "number", "minimum": 0 },
+            "qpos": { "type": "array", "minItems": 17, "maxItems": 17, "items": { "type": "number" } },
+            "qvel": { "type": "array", "minItems": 16, "maxItems": 16, "items": { "type": "number" } },
+            "body_poses": { "type": "array", "minItems": 91, "maxItems": 91, "items": { "type": "number" } }
+          },
+          "required": ["sequence", "simulation_time", "qpos", "qvel", "body_poses"]
+        }
+      ]
+    },
+    "complete": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "properties": { "type": { "const": "complete" }, "result": { "type": "object" } },
+          "required": ["result"]
+        }
+      ]
+    },
+    "error": {
+      "allOf": [
+        { "$ref": "#/$defs/base" },
+        {
+          "type": "object",
+          "properties": { "type": { "const": "error" }, "message": { "type": "string" } },
+          "required": ["message"]
+        }
+      ]
+    }
+  }
+}

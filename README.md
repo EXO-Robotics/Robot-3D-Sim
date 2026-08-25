@@ -4,7 +4,8 @@ A client-side humanoid robotics sandbox powered by MuJoCo WebAssembly and Three.
 
 This browser experience is now explicitly the **Assisted Lab**. The repository
 also contains the native **EXO Bench** foundation for free-base, unassisted,
-replayable embodied-AI trials. See [`benchmark/README.md`](benchmark/README.md)
+replayable embodied-AI trials and the scripted **EXO Agent v0.1** navigation
+milestone. See [`benchmark/README.md`](benchmark/README.md)
 and [`docs/EXO_BENCH_ARCHITECTURE.md`](docs/EXO_BENCH_ARCHITECTURE.md).
 
 The qualified native chassis is named `exo.h1-locomotion.v1` deliberately: it
@@ -18,6 +19,12 @@ On macOS, double-click **`Open Robot Field.command`**.
 The launcher starts the required local web server and opens `http://127.0.0.1:5173/`. Keep its Terminal window open while using the simulator.
 
 The site cannot run by double-clicking `index.html`: browsers block the module/WASM loading path when it is opened as a local `file://` document.
+
+Use the app mode switch to keep the existing Assisted Lab or enter **EXO
+Bench**. Benchmark mode can load the bundled AGENT-001 `.exorun`, accept a local
+replay file, or connect to the read-only localhost stream documented in
+[`benchmark/README.md`](benchmark/README.md). GitHub Pages replay is entirely
+client-side; native EXO Bench remains authoritative for physics and scoring.
 
 Terminal alternatives:
 

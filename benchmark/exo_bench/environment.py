@@ -61,6 +61,15 @@ class NativeH1Environment:
             dtype=np.int32,
         )
         self.pelvis_body_id = mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, "pelvis")
+        self._visual_body_ids = {
+            "pelvis": self.pelvis_body_id,
+            "left_thigh": mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, "left_hip_pitch_link"),
+            "left_shin": mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, "left_knee_link"),
+            "left_foot": mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, "left_ankle_link"),
+            "right_thigh": mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, "right_hip_pitch_link"),
+            "right_shin": mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, "right_knee_link"),
+            "right_foot": mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, "right_ankle_link"),
+        }
 
     @property
     def timestep(self) -> float:
@@ -107,6 +116,70 @@ class NativeH1Environment:
         self.last_torque.fill(0)
         mujoco.mj_forward(self.model, self.data)
         return self.state()
+
+    def add_scenario_start_heading(self, heading_rad: float) -> SimulationState:
+        """Apply a versioned course heading after the seeded reset perturbation."""
+        if not math.isfinite(heading_rad):
+            raise ValueError("Scenario start heading must be finite")
+        scenario_quaternion = np.asarray(
+            [math.cos(heading_rad / 2.0), 0.0, 0.0, math.sin(heading_rad / 2.0)],
+            dtype=np.float64,
+        )
+        rotated = np.empty(4, dtype=np.float64)
+        mujoco.mju_mulQuat(rotated, scenario_quaternion, self.data.qpos[3:7].copy())
+        self.data.qpos[3:7] = rotated
+        mujoco.mj_forward(self.model, self.data)
+        return self.state()
+
+    def visual_body_poses(self) -> np.ndarray:
+        """Return authoritative native kinematic poses for the 13-link visual contract.
+
+        The native locomotion chassis represents the upper body rigidly in the
+        pelvis. Those seven visual nodes therefore receive deterministic virtual
+        offsets transformed by the pelvis pose; leg nodes use native MuJoCo body
+        poses. Each row is px, py, pz, qw, qx, qy, qz.
+        """
+        pelvis_position = np.asarray(self.data.xpos[self.pelvis_body_id], dtype=np.float64)
+        pelvis_rotation = np.asarray(self.data.xmat[self.pelvis_body_id], dtype=np.float64).reshape(3, 3)
+        pelvis_quaternion = np.asarray(self.data.xquat[self.pelvis_body_id], dtype=np.float64)
+        rigid_offsets = {
+            "pelvis": (0.0, 0.0, 0.0),
+            "torso": (0.0, 0.0, 0.14),
+            "head": (0.0, 0.0, 0.65),
+            "left_upper_arm": (0.0, 0.255, 0.50),
+            "left_forearm": (0.0, 0.255, 0.21),
+            "right_upper_arm": (0.0, -0.255, 0.50),
+            "right_forearm": (0.0, -0.255, 0.21),
+        }
+        names = (
+            "pelvis",
+            "torso",
+            "head",
+            "left_upper_arm",
+            "left_forearm",
+            "right_upper_arm",
+            "right_forearm",
+            "left_thigh",
+            "left_shin",
+            "left_foot",
+            "right_thigh",
+            "right_shin",
+            "right_foot",
+        )
+        poses = np.empty((len(names), 7), dtype=np.float32)
+        for index, name in enumerate(names):
+            if name in rigid_offsets:
+                position = pelvis_position + pelvis_rotation @ np.asarray(rigid_offsets[name], dtype=np.float64)
+                quaternion = pelvis_quaternion
+            else:
+                body_id = self._visual_body_ids[name]
+                position = np.asarray(self.data.xpos[body_id], dtype=np.float64)
+                quaternion = np.asarray(self.data.xquat[body_id], dtype=np.float64)
+            poses[index, :3] = position
+            poses[index, 3:] = quaternion
+        if not np.isfinite(poses).all():
+            raise ValueError("Native visual body poses contain nonfinite values")
+        return poses.reshape(-1)
 
     @staticmethod
     def _nonnegative_limit(profile: dict, key: str) -> float:

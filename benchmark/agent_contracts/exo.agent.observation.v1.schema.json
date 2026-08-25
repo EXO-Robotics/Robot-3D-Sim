@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exo-robotics.github.io/Robot-3D-Sim/benchmark/agent_contracts/exo.agent.observation.v1.schema.json",
+  "title": "EXO Agent privileged navigation observation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "simulation_time_s",
+    "base_position_m",
+    "heading_yaw_rad",
+    "planar_velocity_mps",
+    "task",
+    "remaining_time_s",
+    "previous_applied_action"
+  ],
+  "properties": {
+    "schema_version": { "const": "exo.agent.observation.v1" },
+    "simulation_time_s": { "type": "number", "minimum": 0 },
+    "base_position_m": { "$ref": "#/$defs/xyz" },
+    "heading_yaw_rad": { "type": "number", "minimum": -3.141592653589793, "maximum": 3.141592653589793 },
+    "planar_velocity_mps": { "$ref": "#/$defs/xy" },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "goal_position_m", "goal_heading_rad", "target_radius_m", "heading_tolerance_rad"],
+      "properties": {
+        "id": { "type": "string", "const": "AGENT-001@1.0.0" },
+        "goal_position_m": { "$ref": "#/$defs/xy" },
+        "goal_heading_rad": { "type": "number", "minimum": -3.141592653589793, "maximum": 3.141592653589793 },
+        "target_radius_m": { "type": "number", "exclusiveMinimum": 0 },
+        "heading_tolerance_rad": { "type": "number", "exclusiveMinimum": 0, "maximum": 3.141592653589793 }
+      }
+    },
+    "remaining_time_s": { "type": "number", "minimum": 0 },
+    "previous_applied_action": {
+      "anyOf": [
+        { "type": "null" },
+        { "$ref": "exo.agent.action.v1.schema.json" }
+      ]
+    }
+  },
+  "$defs": {
+    "xy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": { "x": { "type": "number" }, "y": { "type": "number" } }
+    },
+    "xyz": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "z"],
+      "properties": { "x": { "type": "number" }, "y": { "type": "number" }, "z": { "type": "number" } }
+    }
+  }
+}

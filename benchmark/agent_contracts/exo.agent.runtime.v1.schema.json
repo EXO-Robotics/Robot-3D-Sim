@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exo-robotics.github.io/Robot-3D-Sim/benchmark/agent_contracts/exo.agent.runtime.v1.schema.json",
+  "title": "EXO Agent simulated-time runtime v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "scheduler", "decision_interval_s", "observation_contract", "action_contract", "action_limits", "invalid_action_behavior"],
+  "properties": {
+    "schema_version": { "const": "exo.agent.runtime.v1" },
+    "scheduler": { "const": "simulated_time_paused" },
+    "decision_interval_s": { "type": "number", "exclusiveMinimum": 0 },
+    "observation_contract": { "const": "exo.agent.observation.v1" },
+    "action_contract": { "const": "exo.agent.action.v1" },
+    "invalid_action_behavior": { "const": "reject_to_safe_stop" },
+    "action_limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["forward_mps", "lateral_mps", "yaw_rate_rps"],
+      "properties": {
+        "forward_mps": { "$ref": "#/$defs/bounds" },
+        "lateral_mps": { "$ref": "#/$defs/bounds" },
+        "yaw_rate_rps": { "$ref": "#/$defs/bounds" }
+      }
+    }
+  },
+  "$defs": {
+    "bounds": {
+      "type": "array",
+      "prefixItems": [{ "type": "number" }, { "type": "number" }],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    }
+  }
+}

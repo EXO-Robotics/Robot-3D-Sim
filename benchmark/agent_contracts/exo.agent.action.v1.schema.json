@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exo-robotics.github.io/Robot-3D-Sim/benchmark/agent_contracts/exo.agent.action.v1.schema.json",
+  "title": "EXO Agent high-level locomotion action v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "type", "forward_mps", "lateral_mps", "yaw_rate_rps"],
+  "properties": {
+    "schema_version": { "const": "exo.agent.action.v1" },
+    "type": { "const": "velocity" },
+    "forward_mps": { "type": "number" },
+    "lateral_mps": { "type": "number" },
+    "yaw_rate_rps": { "type": "number" }
+  }
+}

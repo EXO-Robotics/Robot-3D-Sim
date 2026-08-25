@@ -1,0 +1,13 @@
+{
+  "schema_version": "exo.agent.runtime.v1",
+  "scheduler": "simulated_time_paused",
+  "decision_interval_s": 0.2,
+  "observation_contract": "exo.agent.observation.v1",
+  "action_contract": "exo.agent.action.v1",
+  "invalid_action_behavior": "reject_to_safe_stop",
+  "action_limits": {
+    "forward_mps": [-0.75, 0.75],
+    "lateral_mps": [-0.25, 0.25],
+    "yaw_rate_rps": [-0.6, 0.6]
+  }
+}

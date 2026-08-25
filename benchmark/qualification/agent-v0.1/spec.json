@@ -1,0 +1,33 @@
+{
+  "schema_version": "exo.agent-qualification-spec.v1",
+  "spec_id": "exo.agent-v0.1.qualification.v1",
+  "version": "1.0.0",
+  "foundation": {
+    "receipt": "../exo-h1-locomotion-foundation-v1.qualification.json",
+    "receipt_sha256": "6466122438bb6568bb381acccf17f05703ab3923ed49a04d71a2946b5437ffc3",
+    "qualified": true,
+    "robot": "exo.h1-locomotion.v1",
+    "controller": "exo.h1.velocity.v1"
+  },
+  "candidate": {
+    "agent": "exo.agent.scripted-baseline.v0.1",
+    "course": "AGENT-001@1.0.0",
+    "runtime": "exo.agent.runtime.v1"
+  },
+  "scenario_seeds": [0, 1, 2, 3, 4],
+  "repeat_each": true,
+  "required_gates": [
+    "AQ-001-contract-integrity",
+    "AQ-002-public-boundary",
+    "AQ-003-simulated-time-scheduler",
+    "AQ-004-scenario-matrix",
+    "AQ-005-exact-same-runtime-determinism",
+    "AQ-006-replay-integrity"
+  ],
+  "determinism": {
+    "class": "EXACT-SAME-RUNTIME",
+    "digest_schema": "exo.agent-episode-digest.v1",
+    "wall_clock_agent_latency_excluded": true,
+    "claim": "Repeated execution with identical source, artifacts, dependency lock, runtime, architecture, scenario seed, reset profile, agent, and contracts produces the same canonical Agent episode digest."
+  }
+}

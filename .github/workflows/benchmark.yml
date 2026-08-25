@@ -38,10 +38,13 @@ jobs:
         run: uv sync --frozen --extra dev --python 3.12
       - run: uv run --frozen exo-bench verify-artifacts --course BASIC-001
       - run: uv run --frozen pytest
-      - run: uv run --frozen exo-bench qualify --output qualification-ci.json --evidence-dir qualification-evidence
+      - run: uv run --frozen exo-bench qualify --output ${{ runner.temp }}/qualification-ci.json --evidence-dir ${{ runner.temp }}/qualification-evidence
+      - run: uv run --frozen exo-bench agent qualify --output ${{ runner.temp }}/agent-qualification-ci.json --evidence-dir ${{ runner.temp }}/agent-qualification-evidence
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: exo-bench-qualification
           path: |
-            qualification-ci.json
-            qualification-evidence/
+            ${{ runner.temp }}/qualification-ci.json
+            ${{ runner.temp }}/qualification-evidence/
+            ${{ runner.temp }}/agent-qualification-ci.json
+            ${{ runner.temp }}/agent-qualification-evidence/

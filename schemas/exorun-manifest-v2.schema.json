@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exo-robotics.github.io/Robot-3D-Sim/schemas/exorun-manifest-v2.schema.json",
+  "title": "EXO Agent run manifest v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "robot", "controller", "agent", "course", "engine", "exo_bench", "environment",
+    "seed", "reset_profile", "sensor_profile", "scheduler", "visual_replay", "runner", "determinism",
+    "determinism_digest", "contents"
+  ],
+  "properties": {
+    "schema_version": { "const": "exo.run.v2" },
+    "robot": { "type": "object" },
+    "controller": { "type": "object" },
+    "agent": {
+      "type": "object",
+      "required": ["id", "manifest_sha256", "contracts"],
+      "properties": {
+        "id": { "type": "string" },
+        "manifest_sha256": { "$ref": "#/$defs/sha256" },
+        "contracts": { "type": "object" }
+      }
+    },
+    "course": { "type": "object" },
+    "engine": { "type": "object" },
+    "exo_bench": { "type": "object" },
+    "environment": { "type": "object" },
+    "seed": { "type": "integer" },
+    "reset_profile": { "type": "object" },
+    "sensor_profile": { "const": "agent-privileged-navigation-v1" },
+    "scheduler": { "type": "object" },
+    "visual_replay": { "type": "object" },
+    "runner": { "type": "object" },
+    "determinism": {
+      "type": "object",
+      "required": ["class", "digest_schema", "wall_clock_agent_latency_excluded"],
+      "properties": {
+        "class": { "const": "EXACT-SAME-RUNTIME" },
+        "digest_schema": { "const": "exo.agent-episode-digest.v1" },
+        "wall_clock_agent_latency_excluded": { "const": true }
+      }
+    },
+    "determinism_digest": { "$ref": "#/$defs/sha256" },
+    "contents": {
+      "type": "object",
+      "minProperties": 15,
+      "maxProperties": 15,
+      "additionalProperties": { "$ref": "#/$defs/sha256" }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}

@@ -13,7 +13,8 @@ root translation, height, yaw, pitch or roll trainer actuators.
 ## Divisions
 
 - **EXO Agent:** every entrant uses the same qualified locomotion policy and
-  emits standardized velocity or skill commands.
+  emits standardized velocity commands. v0.1 implements this division with a
+  public privileged-navigation observation and `ScriptedBaselineAgent`.
 - **EXO Control:** an entrant supplies standardized motor commands behind the
   trusted robot-specific actuator boundary.
 - **EXO End-to-End:** reserved for a later milestone in which entrants supply
@@ -26,6 +27,27 @@ Results from these divisions must never share one leaderboard.
 The standard reasoning track advances simulated time only after a valid action
 is available. Model latency is recorded separately. A future real-time track
 will continue stepping physics and enforce wall-clock decision deadlines.
+
+The implemented `exo.agent.runtime.v1` scheduler produces an observation at
+simulated time `t`, pauses physics during the agent call, validates the
+high-level action, and advances the unchanged locomotion policy for the declared
+simulated decision interval. The browser has no official-run control path.
+
+## Agent v0.1 data flow
+
+```text
+ScriptedBaselineAgent
+  -> exo.agent.observation.v1 / exo.agent.action.v1
+  -> exo.agent.runtime.v1 simulated-time scheduler
+  -> trusted bounded velocity command
+  -> qualified exo.h1.velocity.v1 policy
+  -> qualified exo.h1-locomotion.v1 native MuJoCo
+  -> exo.run.v2 + read-only live visualization frames
+```
+
+The browser animates historical runs from recorded 13-link body poses; it does
+not re-run benchmark physics. Local frames use the versioned `exo.live.v1` SSE
+protocol on loopback and are visualization only.
 
 ## Qualification
 

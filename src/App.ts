@@ -6,6 +6,7 @@ import { MujocoEngine } from "./physics/MujocoEngine";
 import { RobotScene, type CameraMode } from "./renderer/RobotScene";
 import type { SensorFrame } from "./sim/types";
 import { TelemetryBuffer } from "./telemetry/TelemetryBuffer";
+import { BenchmarkViewer } from "./benchmark/BenchmarkViewer";
 
 const CONTROL_DT = 0.01;
 const TELEMETRY_DT = 0.04;
@@ -26,9 +27,11 @@ export class App {
   private powerEnabled = true;
   private animationId = 0;
   private readonly heldControls = new Set<string>();
+  private readonly benchmark: BenchmarkViewer;
 
   constructor(private readonly root: HTMLElement) {
     this.root.innerHTML = this.template();
+    this.benchmark = new BenchmarkViewer(this.requireElement("#benchmark-mode"));
     this.bindStaticUi();
   }
 
@@ -55,6 +58,7 @@ export class App {
     this.controller.dispose();
     this.scene?.dispose();
     this.engine?.dispose();
+    this.benchmark.dispose();
   }
 
   private animate(now: number): void {
@@ -103,6 +107,9 @@ export class App {
   }
 
   private bindStaticUi(): void {
+    this.root.querySelectorAll<HTMLButtonElement>("[data-experience]").forEach((button) => {
+      button.addEventListener("click", () => void this.selectExperience(button.dataset.experience === "bench" ? "bench" : "lab"));
+    });
     this.requireElement("#run-button").addEventListener("click", () => this.toggleRun());
     this.requireElement("#reset-button").addEventListener("click", () => this.reset());
     this.requireElement("#power-button").addEventListener("click", () => this.togglePower());
@@ -333,6 +340,16 @@ export class App {
     this.requireElement("#code-panel").classList.toggle("inspector-panel--active", panel === "code");
   }
 
+  private async selectExperience(experience: "lab" | "bench"): Promise<void> {
+    if (experience === "bench" && this.session.phase === "running") this.session.pause();
+    this.requireElement("#assisted-mode").classList.toggle("experience--active", experience === "lab");
+    this.benchmark.setVisible(experience === "bench");
+    this.root.querySelectorAll<HTMLElement>("[data-experience]").forEach((button) => {
+      button.classList.toggle("experience-switch__active", button.dataset.experience === experience);
+    });
+    if (experience === "bench") await this.benchmark.start();
+  }
+
   private setBoot(label: string, progress: number): void {
     this.requireElement("#boot-label").textContent = label;
     this.requireElement("#boot-progress").setAttribute("style", `--progress:${progress}%`);
@@ -361,10 +378,11 @@ export class App {
 
   private template(): string {
     return `
+      <div id="assisted-mode" class="experience experience--active">
       <div class="app-shell">
         <header class="topbar">
           <div class="brand"><span class="brand__mark">H1</span><span>HUMANOID ROBOT GAMES</span></div>
-          <div class="event-title"><span>ASSISTED LAB</span><strong>OPEN FIELD / TRAINER</strong></div>
+          <div class="experience-title"><nav class="experience-switch" aria-label="Experience mode"><button class="experience-switch__active" data-experience="lab">ASSISTED LAB</button><button data-experience="bench">EXO BENCH</button></nav><div class="event-title"><span>ASSISTED LAB</span><strong>OPEN FIELD / TRAINER</strong></div></div>
           <div class="system-state"><span id="phase-dot" class="status-dot status-dot--loading"></span><span id="phase-label">LOADING</span><small>MUJOCO 3.12 / WASM</small></div>
         </header>
 
@@ -451,6 +469,8 @@ export class App {
         </section>
       </div>
       <div id="boot" class="boot"><div class="boot__brand">H1</div><p id="boot-label">Initializing robotics lab</p><div class="boot__track"><i id="boot-progress"></i></div><small>PHYSICS EXECUTES LOCALLY IN YOUR BROWSER</small></div>
+      </div>
+      <div id="benchmark-mode" class="experience"></div>
     `;
   }
 }

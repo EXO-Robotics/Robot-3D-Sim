@@ -1,0 +1,28 @@
+{
+  "schema_version": "exo.agent-course.v1",
+  "course_id": "AGENT-001",
+  "version": "1.0.0",
+  "name": "Privileged flat-ground point navigation",
+  "task": "agent_navigation",
+  "limits": {
+    "time_seconds": 35.0,
+    "max_falls": 0
+  },
+  "success": {
+    "target_radius_m": 0.75,
+    "heading_tolerance_rad": 0.35,
+    "final_speed_mps": 0.18,
+    "stop_hold_seconds": 1.5
+  },
+  "scenario_set": {
+    "id": "exo.agent-001.scenarios.v1",
+    "description": "Explicit immutable scenarios; seed selects one entry and the qualified reset profile adds its small deterministic perturbation.",
+    "scenarios": [
+      { "seed": 0, "start_heading_rad": 0.0, "target_position_m": [3.0, 0.0], "goal_heading_rad": 0.0 },
+      { "seed": 1, "start_heading_rad": 0.35, "target_position_m": [3.0, 1.0], "goal_heading_rad": 0.3217505543966422 },
+      { "seed": 2, "start_heading_rad": -0.35, "target_position_m": [3.0, -1.0], "goal_heading_rad": -0.3217505543966422 },
+      { "seed": 3, "start_heading_rad": 0.85, "target_position_m": [2.5, 1.5], "goal_heading_rad": 0.5404195002705842 },
+      { "seed": 4, "start_heading_rad": -0.85, "target_position_m": [2.5, -1.5], "goal_heading_rad": -0.5404195002705842 }
+    ]
+  }
+}

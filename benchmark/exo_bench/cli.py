@@ -3,8 +3,12 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import time
 from pathlib import Path
 
+from .agent_qualification import AgentQualifier, write_agent_qualification
+from .agent_runner import AgentBenchmarkRunner, AgentRunResult
+from .live import LocalLiveServer
 from .qualification import ChassisQualifier, write_qualification
 from .recorder import inspect_replay
 from .registry import ArtifactRegistry
@@ -25,6 +29,28 @@ def _print_result(result: RunResult) -> None:
     print(f"Peak torque  {result.peak_torque_nm:.2f} Nm")
     if result.stop_average_speed_mps is not None:
         print(f"Stop speed   {result.stop_average_speed_mps:.3f} m/s average")
+    print(f"Digest       {result.determinism_digest}")
+    if result.replay_path:
+        print(f"Replay       {result.replay_path}")
+
+
+def _print_agent_result(result: AgentRunResult) -> None:
+    print("EXO BENCH AGENT")
+    print(f"Robot        {result.robot}")
+    print(f"Controller   {result.controller}")
+    print(f"Agent        {result.agent}")
+    print(f"Course       {result.course}")
+    print(f"Scenario     seed {result.seed}")
+    print(f"Result       {'PASS' if result.passed else 'FAIL'} ({result.reason})")
+    print(f"Sim time     {result.simulated_completion_time_s:.2f} s")
+    print(f"Path         {result.path_length_m:.2f} m")
+    print(f"Position err {result.final_position_error_m:.3f} m")
+    print(f"Heading err  {result.final_heading_error_rad:.3f} rad")
+    print(f"Final speed  {result.final_speed_mps:.3f} m/s")
+    if result.final_window_average_speed_mps is not None:
+        print(f"Stop window  {result.final_window_average_speed_mps:.3f} m/s average")
+    print(f"Decisions    {result.agent_decision_count}")
+    print(f"Agent latency {result.agent_wall_latency_ms['mean']:.3f} ms mean (recorded, not scored)")
     print(f"Digest       {result.determinism_digest}")
     if result.replay_path:
         print(f"Replay       {result.replay_path}")
@@ -96,6 +122,44 @@ def _verify(args: argparse.Namespace) -> int:
     return 0
 
 
+def _agent_run(args: argparse.Namespace) -> int:
+    runner = AgentBenchmarkRunner.from_aliases(
+        args.robot,
+        args.controller,
+        args.course,
+        args.reset_profile,
+        agent_id=args.agent,
+    )
+    output = Path(args.record).resolve() if args.record else None
+    if args.live_port:
+        with LocalLiveServer(args.live_port) as live:
+            print(f"EXO live visualization: {live.url}", file=sys.stderr, flush=True)
+            result = runner.run(seed=args.seed, record_path=output, live_sink=live.bridge)
+            if args.live_hold_seconds > 0:
+                time.sleep(args.live_hold_seconds)
+    else:
+        result = runner.run(seed=args.seed, record_path=output)
+    if args.verify_determinism:
+        repeated = runner.run(seed=args.seed)
+        if repeated.determinism_digest != result.determinism_digest:
+            print("Agent determinism verification failed", file=sys.stderr)
+            return 2
+    if args.json:
+        print(json.dumps(result.to_dict(), allow_nan=False, indent=2, sort_keys=True))
+    else:
+        _print_agent_result(result)
+    return 0 if result.passed else 1
+
+
+def _agent_qualify(args: argparse.Namespace) -> int:
+    evidence_dir = Path(args.evidence_dir).resolve() if args.evidence_dir else None
+    report = AgentQualifier().qualify(evidence_dir=evidence_dir)
+    if args.output:
+        write_agent_qualification(report, Path(args.output).resolve())
+    print(json.dumps(report, allow_nan=False, indent=2, sort_keys=True))
+    return 0 if report["qualified"] else 1
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="exo-bench")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -130,6 +194,28 @@ def build_parser() -> argparse.ArgumentParser:
     verify.add_argument("--course", default="BASIC-001")
     verify.add_argument("--reset-profile", default="basic")
     verify.set_defaults(function=_verify)
+
+    agent = commands.add_parser("agent", help="Run or qualify the versioned EXO Agent division")
+    agent_commands = agent.add_subparsers(dest="agent_command", required=True)
+
+    agent_run = agent_commands.add_parser("run", help="Run AGENT-001 through the public Agent contract")
+    agent_run.add_argument("--course", default="agent-navigation")
+    agent_run.add_argument("--robot", default="h1")
+    agent_run.add_argument("--controller", default="baseline")
+    agent_run.add_argument("--agent", default="exo.agent.scripted-baseline.v0.1")
+    agent_run.add_argument("--seed", type=int, default=0)
+    agent_run.add_argument("--reset-profile", default="basic")
+    agent_run.add_argument("--record")
+    agent_run.add_argument("--verify-determinism", action="store_true")
+    agent_run.add_argument("--live-port", type=int)
+    agent_run.add_argument("--live-hold-seconds", type=float, default=10.0)
+    agent_run.add_argument("--json", action="store_true")
+    agent_run.set_defaults(function=_agent_run)
+
+    agent_qualify = agent_commands.add_parser("qualify", help="Run EXO Agent v0.1 qualification")
+    agent_qualify.add_argument("--output")
+    agent_qualify.add_argument("--evidence-dir")
+    agent_qualify.set_defaults(function=_agent_qualify)
     return parser
 
 

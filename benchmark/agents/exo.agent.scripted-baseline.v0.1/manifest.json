@@ -1,0 +1,31 @@
+{
+  "schema_version": "exo.agent-manifest.v1",
+  "agent_id": "exo.agent.scripted-baseline.v0.1",
+  "display_name": "Scripted Baseline Agent v0.1",
+  "version": "0.1.0",
+  "kind": "scripted",
+  "network_access": false,
+  "contracts": {
+    "observation": {
+      "id": "exo.agent.observation.v1",
+      "path": "../../agent_contracts/exo.agent.observation.v1.schema.json",
+      "sha256": "c24f6e9148375e763f1d046fca7face55437d116632937fd54c42af81ccad9ee"
+    },
+    "action": {
+      "id": "exo.agent.action.v1",
+      "path": "../../agent_contracts/exo.agent.action.v1.schema.json",
+      "sha256": "4e5652640221bdb74c1b7e08d34c1d9b85f15dcc4922106cead2dd2bb8cd4ced"
+    },
+    "runtime": {
+      "id": "exo.agent.runtime.v1",
+      "path": "../../agent_contracts/exo.agent.runtime.v1.json",
+      "sha256": "b8ef73af72ad8f7156a606374a5b3688cc9fa38807e30335d323912f51236840"
+    }
+  },
+  "interface": {
+    "input": "public observation contract only",
+    "output": "bounded high-level velocity action only",
+    "environment_internals": false,
+    "low_level_joint_or_torque_control": false
+  }
+}
