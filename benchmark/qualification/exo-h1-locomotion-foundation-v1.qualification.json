@@ -1,0 +1,993 @@
+{
+  "artifacts": {
+    "controller_config_sha256": "4e509fa63fda52e38d21d9f1924b7c0d6bf9dfd1c2d9b94450b7f6e7ca281329",
+    "controller_manifest_sha256": "b4ab25535677487866f49daf84215bdb1092177c83924c99e14744287e750331",
+    "course_sha256": "85fb17a51d6a53e0ebbb6b298054772ce4043c5f21c6bb216772356983cbf78b",
+    "model_tree_sha256": "12c7d68fabc0f24e7ce5ed46697cc41ccdce41eebe464b87201179a3b0a0136a",
+    "model_xml_sha256": "2bee8abddbf4bc093bcdb2266c7139cd1c78e279bf65f7ee9fde41fe599900d4",
+    "policy_sha256": "44a0fbceb81f3877833ae9a398d039bea1759cb0d3c8188181013885f70589eb",
+    "reset_profile_sha256": "0e3013f153ffb542eef55375f80455257e4461969c265a7d32ee49420e104d85",
+    "robot_manifest_sha256": "ef33659f5880f2fc4d57f6f7c9fea9efdeb28b35023e4eceaaa9ba0870c52e83",
+    "scene_sha256": "88ffcccad2c5df71a7472b4b30ec7e4ea06e045efc6b4e11ccd8bebc2848f0b3",
+    "source_commit": "276801e46c5d433564f24658bac64f254b7d2d4b"
+  },
+  "basic_matrix": {
+    "case_count": 20,
+    "cases": [
+      {
+        "collisions": null,
+        "course": "BASIC-001@1.0.0",
+        "deterministic": true,
+        "digest": "e2711c1c8ee4ae26ed49898d021fc04094b55ec72e407c6c1bd8a5453d4bc6ca",
+        "energy_joules": 455.2865569485172,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 93.86233194392503,
+        "progress_meters": -0.7586206477975082,
+        "reason": "complete",
+        "repeat_digest": "e2711c1c8ee4ae26ed49898d021fc04094b55ec72e407c6c1bd8a5453d4bc6ca",
+        "reset_perturbation": {
+          "base_xy_m": [
+            0.0005478467492858173,
+            -0.0009208531449445187
+          ],
+          "base_yaw_rad": -0.0045902647606380536,
+          "joint_position_rad": [
+            -0.0019338894578858836,
+            0.0012530809568010897,
+            0.0016510223091108869,
+            0.00042654310306871945,
+            0.0009179862439359937,
+            0.0001744999658616915,
+            0.0017402896951510729,
+            0.0012634142164861287,
+            -0.0019890459993194077,
+            0.0014296171063502773
+          ]
+        },
+        "seed": 0,
+        "status": "PASS",
+        "time_seconds": 10.000000000000009
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-001@1.0.0",
+        "deterministic": true,
+        "digest": "20cb20d098649a3d8fef289df33aa920ab73a4bab5821dd806184fc94ff6db8b",
+        "energy_joules": 456.5864512336642,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 94.3906770160068,
+        "progress_meters": -0.7563086848099915,
+        "reason": "complete",
+        "repeat_digest": "20cb20d098649a3d8fef289df33aa920ab73a4bab5821dd806184fc94ff6db8b",
+        "reset_perturbation": {
+          "base_xy_m": [
+            4.7286498801026864e-05,
+            0.0018018547853037412
+          ],
+          "base_yaw_rad": -0.0035584038728036626,
+          "joint_position_rad": [
+            0.0017945977885489755,
+            -0.0007526741919580582,
+            -0.0003066942041096974,
+            0.001310810375281767,
+            -0.0003632034545233549,
+            0.000198374750692238,
+            -0.0018897635470277265,
+            0.0010140524346992264,
+            0.0001525732528771129,
+            -0.0006810731340036314
+          ]
+        },
+        "seed": 1,
+        "status": "PASS",
+        "time_seconds": 10.000000000000009
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-001@1.0.0",
+        "deterministic": true,
+        "digest": "a1392b9402cdb7b27a7725bee72ffd9e8e82f34418f4715223492a4329686820",
+        "energy_joules": 454.80420834975473,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 94.2484429378286,
+        "progress_meters": -0.757331789726074,
+        "reason": "complete",
+        "repeat_digest": "a1392b9402cdb7b27a7725bee72ffd9e8e82f34418f4715223492a4329686820",
+        "reset_perturbation": {
+          "base_xy_m": [
+            -0.0009535514630027344,
+            -0.0008060354263435068
+          ],
+          "base_yaw_rad": 0.003142257405942803,
+          "joint_position_rad": [
+            -0.0016323362314596124,
+            0.000400402103862616,
+            0.0009142421072471785,
+            -0.0012483957065335862,
+            -0.0017794134906677272,
+            -0.0009001225283758476,
+            0.0006297320595023703,
+            0.000249062651121712,
+            -0.0013997509467786556,
+            -0.0002694768367808513
+          ]
+        },
+        "seed": 2,
+        "status": "PASS",
+        "time_seconds": 10.000000000000009
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-001@1.0.0",
+        "deterministic": true,
+        "digest": "5340dc27093e7a65d84122c1cfdd5e499d9e37f1380e4e337618cdf9e37eaa94",
+        "energy_joules": 456.0467679133178,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 94.37497108520613,
+        "progress_meters": -0.757720956672741,
+        "reason": "complete",
+        "repeat_digest": "5340dc27093e7a65d84122c1cfdd5e499d9e37f1380e4e337618cdf9e37eaa94",
+        "reset_perturbation": {
+          "base_xy_m": [
+            -0.0016574033314255025,
+            -0.0010527579736156012
+          ],
+          "base_yaw_rad": 0.003012744652063969,
+          "joint_position_rad": [
+            0.00032864814425747116,
+            -0.0016234854310384034,
+            -0.0002674922390541048,
+            -8.37948074366639e-05,
+            -0.0013610443414516858,
+            0.0009383086056368582,
+            -0.0015453119203143863,
+            -0.00043508723801735183,
+            6.69607304854547e-05,
+            -0.0002774879183432888
+          ]
+        },
+        "seed": 3,
+        "status": "PASS",
+        "time_seconds": 10.000000000000009
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-001@1.0.0",
+        "deterministic": true,
+        "digest": "d088a7230169e43200a6eb5b821dd8093d3889ab23462aa9b6b75c51c97a458c",
+        "energy_joules": 455.2136309387777,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 94.04553115287065,
+        "progress_meters": -0.7593859904429123,
+        "reason": "complete",
+        "repeat_digest": "d088a7230169e43200a6eb5b821dd8093d3889ab23462aa9b6b75c51c97a458c",
+        "reset_perturbation": {
+          "base_xy_m": [
+            0.0017722244222894705,
+            4.531021125744639e-05
+          ],
+          "base_yaw_rad": 0.0047624370570770415,
+          "joint_position_rad": [
+            -0.0016766559044175914,
+            0.0004294233279801185,
+            -0.0004940536624909097,
+            0.001207604827943229,
+            -0.0013018887354238862,
+            0.0014865410967506256,
+            0.00017576560305399268,
+            0.0016088603188639534,
+            -9.138590464317487e-05,
+            -0.0002780148890823475
+          ]
+        },
+        "seed": 4,
+        "status": "PASS",
+        "time_seconds": 10.000000000000009
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-002@1.0.0",
+        "deterministic": true,
+        "digest": "2cfcde872283d8b1b71cde0db99c674cfb0e369bf4eab657f1088cf469e8d27e",
+        "energy_joules": 897.1635095243406,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 100.44086859465943,
+        "progress_meters": 5.005527188485268,
+        "reason": "complete",
+        "repeat_digest": "2cfcde872283d8b1b71cde0db99c674cfb0e369bf4eab657f1088cf469e8d27e",
+        "reset_perturbation": {
+          "base_xy_m": [
+            0.0005478467492858173,
+            -0.0009208531449445187
+          ],
+          "base_yaw_rad": -0.0045902647606380536,
+          "joint_position_rad": [
+            -0.0019338894578858836,
+            0.0012530809568010897,
+            0.0016510223091108869,
+            0.00042654310306871945,
+            0.0009179862439359937,
+            0.0001744999658616915,
+            0.0017402896951510729,
+            0.0012634142164861287,
+            -0.0019890459993194077,
+            0.0014296171063502773
+          ]
+        },
+        "seed": 0,
+        "status": "PASS",
+        "time_seconds": 12.240000000000757
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-002@1.0.0",
+        "deterministic": true,
+        "digest": "2f965debf27ac67d7a551e0fb165c90ccfabe00302692ca7b94503cb34a3f974",
+        "energy_joules": 891.8011542455876,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 99.4245612127866,
+        "progress_meters": 5.003868996883608,
+        "reason": "complete",
+        "repeat_digest": "2f965debf27ac67d7a551e0fb165c90ccfabe00302692ca7b94503cb34a3f974",
+        "reset_perturbation": {
+          "base_xy_m": [
+            4.7286498801026864e-05,
+            0.0018018547853037412
+          ],
+          "base_yaw_rad": -0.0035584038728036626,
+          "joint_position_rad": [
+            0.0017945977885489755,
+            -0.0007526741919580582,
+            -0.0003066942041096974,
+            0.001310810375281767,
+            -0.0003632034545233549,
+            0.000198374750692238,
+            -0.0018897635470277265,
+            0.0010140524346992264,
+            0.0001525732528771129,
+            -0.0006810731340036314
+          ]
+        },
+        "seed": 1,
+        "status": "PASS",
+        "time_seconds": 12.240000000000757
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-002@1.0.0",
+        "deterministic": true,
+        "digest": "ff6f97fad3e812de20efe26e8a68b8ccecd67b9a42b988c854491579c4b69d45",
+        "energy_joules": 896.023959977105,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 100.75062690725906,
+        "progress_meters": 5.000365938951017,
+        "reason": "complete",
+        "repeat_digest": "ff6f97fad3e812de20efe26e8a68b8ccecd67b9a42b988c854491579c4b69d45",
+        "reset_perturbation": {
+          "base_xy_m": [
+            -0.0009535514630027344,
+            -0.0008060354263435068
+          ],
+          "base_yaw_rad": 0.003142257405942803,
+          "joint_position_rad": [
+            -0.0016323362314596124,
+            0.000400402103862616,
+            0.0009142421072471785,
+            -0.0012483957065335862,
+            -0.0017794134906677272,
+            -0.0009001225283758476,
+            0.0006297320595023703,
+            0.000249062651121712,
+            -0.0013997509467786556,
+            -0.0002694768367808513
+          ]
+        },
+        "seed": 2,
+        "status": "PASS",
+        "time_seconds": 12.240000000000757
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-002@1.0.0",
+        "deterministic": true,
+        "digest": "247f0f7cb2410f22ce99903fda9323173a550167ff0afcc2a67f4aab10bda3c7",
+        "energy_joules": 896.465502706875,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 100.13236733881016,
+        "progress_meters": 5.006667066640979,
+        "reason": "complete",
+        "repeat_digest": "247f0f7cb2410f22ce99903fda9323173a550167ff0afcc2a67f4aab10bda3c7",
+        "reset_perturbation": {
+          "base_xy_m": [
+            -0.0016574033314255025,
+            -0.0010527579736156012
+          ],
+          "base_yaw_rad": 0.003012744652063969,
+          "joint_position_rad": [
+            0.00032864814425747116,
+            -0.0016234854310384034,
+            -0.0002674922390541048,
+            -8.37948074366639e-05,
+            -0.0013610443414516858,
+            0.0009383086056368582,
+            -0.0015453119203143863,
+            -0.00043508723801735183,
+            6.69607304854547e-05,
+            -0.0002774879183432888
+          ]
+        },
+        "seed": 3,
+        "status": "PASS",
+        "time_seconds": 12.240000000000757
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-002@1.0.0",
+        "deterministic": true,
+        "digest": "33115f2d8bc407a815758c220b4ef284d74f3150d51838dda2c12d9e3ca4d0cc",
+        "energy_joules": 897.4083547229886,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 100.76193402158557,
+        "progress_meters": 5.0045420096704945,
+        "reason": "complete",
+        "repeat_digest": "33115f2d8bc407a815758c220b4ef284d74f3150d51838dda2c12d9e3ca4d0cc",
+        "reset_perturbation": {
+          "base_xy_m": [
+            0.0017722244222894705,
+            4.531021125744639e-05
+          ],
+          "base_yaw_rad": 0.0047624370570770415,
+          "joint_position_rad": [
+            -0.0016766559044175914,
+            0.0004294233279801185,
+            -0.0004940536624909097,
+            0.001207604827943229,
+            -0.0013018887354238862,
+            0.0014865410967506256,
+            0.00017576560305399268,
+            0.0016088603188639534,
+            -9.138590464317487e-05,
+            -0.0002780148890823475
+          ]
+        },
+        "seed": 4,
+        "status": "PASS",
+        "time_seconds": 12.240000000000757
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-003@1.0.0",
+        "deterministic": true,
+        "digest": "c1ba622a30cbf2f85cf668a02a0c2166add7ca2bedc70bd9bf90c61f9a927bcb",
+        "energy_joules": 1089.9279073036862,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 100.44086859465943,
+        "progress_meters": 4.880293823902842,
+        "reason": "complete",
+        "repeat_digest": "c1ba622a30cbf2f85cf668a02a0c2166add7ca2bedc70bd9bf90c61f9a927bcb",
+        "reset_perturbation": {
+          "base_xy_m": [
+            0.0005478467492858173,
+            -0.0009208531449445187
+          ],
+          "base_yaw_rad": -0.0045902647606380536,
+          "joint_position_rad": [
+            -0.0019338894578858836,
+            0.0012530809568010897,
+            0.0016510223091108869,
+            0.00042654310306871945,
+            0.0009179862439359937,
+            0.0001744999658616915,
+            0.0017402896951510729,
+            0.0012634142164861287,
+            -0.0019890459993194077,
+            0.0014296171063502773
+          ]
+        },
+        "seed": 0,
+        "status": "PASS",
+        "time_seconds": 16.76000000000159
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-003@1.0.0",
+        "deterministic": true,
+        "digest": "c5463eaee479490810bdb0265a642945b4d4759cbbcca275c0ca7fe63d59bcf3",
+        "energy_joules": 1085.0671638947385,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 99.4245612127866,
+        "progress_meters": 4.879258639260903,
+        "reason": "complete",
+        "repeat_digest": "c5463eaee479490810bdb0265a642945b4d4759cbbcca275c0ca7fe63d59bcf3",
+        "reset_perturbation": {
+          "base_xy_m": [
+            4.7286498801026864e-05,
+            0.0018018547853037412
+          ],
+          "base_yaw_rad": -0.0035584038728036626,
+          "joint_position_rad": [
+            0.0017945977885489755,
+            -0.0007526741919580582,
+            -0.0003066942041096974,
+            0.001310810375281767,
+            -0.0003632034545233549,
+            0.000198374750692238,
+            -0.0018897635470277265,
+            0.0010140524346992264,
+            0.0001525732528771129,
+            -0.0006810731340036314
+          ]
+        },
+        "seed": 1,
+        "status": "PASS",
+        "time_seconds": 16.76000000000159
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-003@1.0.0",
+        "deterministic": true,
+        "digest": "d22542e473728b4ff64a16b58050416ac0d9d3a4a318c96d659e42b92f1c36da",
+        "energy_joules": 1089.292872732085,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 100.75062690725906,
+        "progress_meters": 4.875591104522644,
+        "reason": "complete",
+        "repeat_digest": "d22542e473728b4ff64a16b58050416ac0d9d3a4a318c96d659e42b92f1c36da",
+        "reset_perturbation": {
+          "base_xy_m": [
+            -0.0009535514630027344,
+            -0.0008060354263435068
+          ],
+          "base_yaw_rad": 0.003142257405942803,
+          "joint_position_rad": [
+            -0.0016323362314596124,
+            0.000400402103862616,
+            0.0009142421072471785,
+            -0.0012483957065335862,
+            -0.0017794134906677272,
+            -0.0009001225283758476,
+            0.0006297320595023703,
+            0.000249062651121712,
+            -0.0013997509467786556,
+            -0.0002694768367808513
+          ]
+        },
+        "seed": 2,
+        "status": "PASS",
+        "time_seconds": 16.76000000000159
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-003@1.0.0",
+        "deterministic": true,
+        "digest": "4067b12409ffd3bbae1acf1424bcb9e1c49530451141441c7da78460fa570924",
+        "energy_joules": 1089.2240360723445,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 100.13236733881016,
+        "progress_meters": 4.883884338829159,
+        "reason": "complete",
+        "repeat_digest": "4067b12409ffd3bbae1acf1424bcb9e1c49530451141441c7da78460fa570924",
+        "reset_perturbation": {
+          "base_xy_m": [
+            -0.0016574033314255025,
+            -0.0010527579736156012
+          ],
+          "base_yaw_rad": 0.003012744652063969,
+          "joint_position_rad": [
+            0.00032864814425747116,
+            -0.0016234854310384034,
+            -0.0002674922390541048,
+            -8.37948074366639e-05,
+            -0.0013610443414516858,
+            0.0009383086056368582,
+            -0.0015453119203143863,
+            -0.00043508723801735183,
+            6.69607304854547e-05,
+            -0.0002774879183432888
+          ]
+        },
+        "seed": 3,
+        "status": "PASS",
+        "time_seconds": 16.76000000000159
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-003@1.0.0",
+        "deterministic": true,
+        "digest": "5b66a105784ac1fd42f60408fbbfe676f7ba93a04c4370363c4ccb3f0c10c3bc",
+        "energy_joules": 1090.6908524502494,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 100.76193402158557,
+        "progress_meters": 4.8796908382647,
+        "reason": "complete",
+        "repeat_digest": "5b66a105784ac1fd42f60408fbbfe676f7ba93a04c4370363c4ccb3f0c10c3bc",
+        "reset_perturbation": {
+          "base_xy_m": [
+            0.0017722244222894705,
+            4.531021125744639e-05
+          ],
+          "base_yaw_rad": 0.0047624370570770415,
+          "joint_position_rad": [
+            -0.0016766559044175914,
+            0.0004294233279801185,
+            -0.0004940536624909097,
+            0.001207604827943229,
+            -0.0013018887354238862,
+            0.0014865410967506256,
+            0.00017576560305399268,
+            0.0016088603188639534,
+            -9.138590464317487e-05,
+            -0.0002780148890823475
+          ]
+        },
+        "seed": 4,
+        "status": "PASS",
+        "time_seconds": 16.76000000000159
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-004@1.0.0",
+        "deterministic": true,
+        "digest": "7f1dc5812e4f33bd91a2be4760c5b353f9d6fdb5d36a8dce107dbf2c0dae401b",
+        "energy_joules": 934.76748291489,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 92.98053558104961,
+        "progress_meters": 2.7572453290663135,
+        "reason": "complete",
+        "repeat_digest": "7f1dc5812e4f33bd91a2be4760c5b353f9d6fdb5d36a8dce107dbf2c0dae401b",
+        "reset_perturbation": {
+          "base_xy_m": [
+            0.0005478467492858173,
+            -0.0009208531449445187
+          ],
+          "base_yaw_rad": -0.0045902647606380536,
+          "joint_position_rad": [
+            -0.0019338894578858836,
+            0.0012530809568010897,
+            0.0016510223091108869,
+            0.00042654310306871945,
+            0.0009179862439359937,
+            0.0001744999658616915,
+            0.0017402896951510729,
+            0.0012634142164861287,
+            -0.0019890459993194077,
+            0.0014296171063502773
+          ]
+        },
+        "seed": 0,
+        "status": "PASS",
+        "time_seconds": 16.76000000000159
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-004@1.0.0",
+        "deterministic": true,
+        "digest": "050ff7dc8193e94ac09976330f59213334939f58ecdfff875fcc2dee3f514458",
+        "energy_joules": 935.9065091893463,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 93.52393427257215,
+        "progress_meters": 2.759038379540613,
+        "reason": "complete",
+        "repeat_digest": "050ff7dc8193e94ac09976330f59213334939f58ecdfff875fcc2dee3f514458",
+        "reset_perturbation": {
+          "base_xy_m": [
+            4.7286498801026864e-05,
+            0.0018018547853037412
+          ],
+          "base_yaw_rad": -0.0035584038728036626,
+          "joint_position_rad": [
+            0.0017945977885489755,
+            -0.0007526741919580582,
+            -0.0003066942041096974,
+            0.001310810375281767,
+            -0.0003632034545233549,
+            0.000198374750692238,
+            -0.0018897635470277265,
+            0.0010140524346992264,
+            0.0001525732528771129,
+            -0.0006810731340036314
+          ]
+        },
+        "seed": 1,
+        "status": "PASS",
+        "time_seconds": 16.76000000000159
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-004@1.0.0",
+        "deterministic": true,
+        "digest": "24c8969c1557637f9a5ee0b0d1f4213aaec68ce14b22df42414b0b4f24300f50",
+        "energy_joules": 934.950603192928,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 93.38107419234237,
+        "progress_meters": 2.7589988293641694,
+        "reason": "complete",
+        "repeat_digest": "24c8969c1557637f9a5ee0b0d1f4213aaec68ce14b22df42414b0b4f24300f50",
+        "reset_perturbation": {
+          "base_xy_m": [
+            -0.0009535514630027344,
+            -0.0008060354263435068
+          ],
+          "base_yaw_rad": 0.003142257405942803,
+          "joint_position_rad": [
+            -0.0016323362314596124,
+            0.000400402103862616,
+            0.0009142421072471785,
+            -0.0012483957065335862,
+            -0.0017794134906677272,
+            -0.0009001225283758476,
+            0.0006297320595023703,
+            0.000249062651121712,
+            -0.0013997509467786556,
+            -0.0002694768367808513
+          ]
+        },
+        "seed": 2,
+        "status": "PASS",
+        "time_seconds": 16.76000000000159
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-004@1.0.0",
+        "deterministic": true,
+        "digest": "d28c781ae40135d559c6c676f7ff55d7773bf26e9fa8cd9d52861a8e9b5abba2",
+        "energy_joules": 936.2784592567314,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 93.50585787059683,
+        "progress_meters": 2.758895614947015,
+        "reason": "complete",
+        "repeat_digest": "d28c781ae40135d559c6c676f7ff55d7773bf26e9fa8cd9d52861a8e9b5abba2",
+        "reset_perturbation": {
+          "base_xy_m": [
+            -0.0016574033314255025,
+            -0.0010527579736156012
+          ],
+          "base_yaw_rad": 0.003012744652063969,
+          "joint_position_rad": [
+            0.00032864814425747116,
+            -0.0016234854310384034,
+            -0.0002674922390541048,
+            -8.37948074366639e-05,
+            -0.0013610443414516858,
+            0.0009383086056368582,
+            -0.0015453119203143863,
+            -0.00043508723801735183,
+            6.69607304854547e-05,
+            -0.0002774879183432888
+          ]
+        },
+        "seed": 3,
+        "status": "PASS",
+        "time_seconds": 16.76000000000159
+      },
+      {
+        "collisions": null,
+        "course": "BASIC-004@1.0.0",
+        "deterministic": true,
+        "digest": "e72e5600934cc3e1ce9bac0c1ffe1578c54098923e5ada1df8699a4c9129188d",
+        "energy_joules": 934.8310062962021,
+        "episode_passed": true,
+        "falls": 0,
+        "peak_torque_nm": 93.16238305441479,
+        "progress_meters": 2.759041335304341,
+        "reason": "complete",
+        "repeat_digest": "e72e5600934cc3e1ce9bac0c1ffe1578c54098923e5ada1df8699a4c9129188d",
+        "reset_perturbation": {
+          "base_xy_m": [
+            0.0017722244222894705,
+            4.531021125744639e-05
+          ],
+          "base_yaw_rad": 0.0047624370570770415,
+          "joint_position_rad": [
+            -0.0016766559044175914,
+            0.0004294233279801185,
+            -0.0004940536624909097,
+            0.001207604827943229,
+            -0.0013018887354238862,
+            0.0014865410967506256,
+            0.00017576560305399268,
+            0.0016088603188639534,
+            -9.138590464317487e-05,
+            -0.0002780148890823475
+          ]
+        },
+        "seed": 4,
+        "status": "PASS",
+        "time_seconds": 16.76000000000159
+      }
+    ],
+    "courses": [
+      "BASIC-001@1.0.0",
+      "BASIC-002@1.0.0",
+      "BASIC-003@1.0.0",
+      "BASIC-004@1.0.0"
+    ],
+    "passed_cases": 20,
+    "repeat_each": true,
+    "reset_profile": "exo.reset-perturbation.basic.v1",
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "status": "PASS"
+  },
+  "candidate": {
+    "controller": "exo.h1.velocity.v1",
+    "robot": "exo.h1-locomotion.v1"
+  },
+  "collision_metric": {
+    "meaning": "null means not measured or not applicable; zero is reserved for a measured zero count",
+    "representation": null,
+    "status": "unavailable"
+  },
+  "courses": {
+    "BASIC-001@1.0.0": "85fb17a51d6a53e0ebbb6b298054772ce4043c5f21c6bb216772356983cbf78b",
+    "BASIC-002@1.0.0": "a8dd2c5ed47f6a8eb35e323150946112811b8115da53624ece29a7d77c468808",
+    "BASIC-003@1.0.0": "148f874c90ad1c4f9b5ba9ea4c641a3a6a2eec8c0143f467868bab4bb4d6beef",
+    "BASIC-004@1.0.0": "94059e370aafb2974c53275b5c4e4b2d434d3d22b28f1a55f1884e941751e435"
+  },
+  "determinism": {
+    "claim": "Repeated execution with identical source, artifacts, dependency lock, runtime, architecture, seed, and reset profile produces the same canonical episode digest.",
+    "class": "EXACT-SAME-RUNTIME",
+    "digest_inputs": [
+      "times",
+      "observations",
+      "actions",
+      "commands",
+      "contacts",
+      "qpos",
+      "qvel",
+      "canonical_events"
+    ],
+    "digest_schema": "exo.episode-digest.v2"
+  },
+  "environment": {
+    "dependency_lock": {
+      "path": "uv.lock",
+      "sha256": "2bb5c83280d3f1b20a7da08cc26cacc2d8f6e55314a2aba04387d4e3cb04d945"
+    },
+    "machine": "arm64",
+    "mujoco": "3.3.6",
+    "numpy": "2.2.6",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "processor": "arm",
+    "python": "3.12.11",
+    "torch": "2.7.1",
+    "torch_deterministic_algorithms": true,
+    "torch_num_interop_threads": 1,
+    "torch_num_threads": 1
+  },
+  "exo_bench": {
+    "commit": "416330e3e883db163eb34385bbf2c842c21f7a1f",
+    "dirty": false,
+    "source_tree_sha256": "650ef6fb807ce842fb0a4630b3fae3e50355bea991d9a9efcdf276847b04a479"
+  },
+  "foundation_checks": {
+    "all_basic_matrix_cases_pass": true,
+    "all_chassis_gates_pass": true,
+    "replay_and_external_archive_receipt_pass": true,
+    "runtime_determinism_controls_pinned": true,
+    "source_worktree_clean": true
+  },
+  "gates": [
+    {
+      "evidence": {
+        "actuators": 10,
+        "expected_actuators": 10,
+        "expected_nq": 17,
+        "expected_nv": 16,
+        "finite_positive_inertia": true,
+        "finite_positive_mass": true,
+        "free_joints": 1,
+        "nq": 17,
+        "nv": 16,
+        "trainer_actuators": []
+      },
+      "id": "CQ-001",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "base_displacement_meters": 0.4317699187458851,
+        "fall_time_seconds": 0.33400000000000024,
+        "fallen": true,
+        "trainer_forces": 0
+      },
+      "id": "CQ-002",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "digests": [
+          "e4f1494471bbe9a6db0d13af88e4f766727d5f77b2c2dbe59751aa9cd440d57e",
+          "c1343c594c0ece6976e1d4fee4e0d6e20a5522149c1a85431275aa3cda76952e",
+          "45bf0cb58ceab0b76f1304f404ffbd7a65bca43e0d002f9b3a42498ea0a49bdc",
+          "7175f6c23189a214b9a6b5daad5752cedb6eab7ed84ab7a1e7718d63be3b12ad",
+          "80bde168cdbd63f71745849789e81d67b80b379f4bdfa1ca9f1838b969fe452f",
+          "e442dc58815ab21d04ff5a7c40fdad16678083dec9fb967655b06bdc8356ce30",
+          "25df25a50de900324b274339475d0dea136c5856af2a5369fa40f27fd26bb21e",
+          "317b36c50171a541691dd8fc6fa7a2e0c9ebf86fee229c45288990dc23641b8d",
+          "b8165339b887cb8c4c35f48fe021e0ac82095cd987a4702b2a578356d9c20044",
+          "213b6315b7749db7901ee691cbb524a503be14915f45d64831e5909a38613704"
+        ],
+        "falls": 0,
+        "nan_trials": 0,
+        "reset_profile": "exo.reset-perturbation.basic.v1",
+        "trials": 10
+      },
+      "id": "CQ-003",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "rmse_limit_mps": 0.45,
+        "trials": [
+          {
+            "energy_joules": 403.2423467025641,
+            "fallen": false,
+            "mean_mps": 0.16062460734287407,
+            "rmse_mps": 0.09310199072612876,
+            "target_mps": 0.25
+          },
+          {
+            "energy_joules": 594.5231382821954,
+            "fallen": false,
+            "mean_mps": 0.4296774239988109,
+            "rmse_mps": 0.07924292192195513,
+            "target_mps": 0.5
+          },
+          {
+            "energy_joules": 1068.8889401126319,
+            "fallen": false,
+            "mean_mps": 0.6785801889010267,
+            "rmse_mps": 0.09066450551753939,
+            "target_mps": 0.75
+          }
+        ]
+      },
+      "id": "CQ-004",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "archive_receipt_path": null,
+        "archive_sha256": null,
+        "collisions": null,
+        "controller": "exo.h1.velocity.v1",
+        "course": "BASIC-003@1.0.0",
+        "determinism_digest": "086429dce5f15afbf7d15f2e98407ef75c8c700f515f0589911d554072a8158a",
+        "energy_joules": 1086.6488534646764,
+        "falls": 0,
+        "final_speed_mps": 0.21283186269344712,
+        "passed": true,
+        "peak_torque_nm": 99.94324915739645,
+        "progress_meters": 4.873371398814927,
+        "reason": "complete",
+        "replay_path": null,
+        "reset_perturbation": {
+          "base_xy_m": [
+            0.0010958241942238534,
+            -0.00024448624099179074
+          ],
+          "base_yaw_rad": 0.003585979199113825,
+          "joint_position_rad": [
+            0.0007894721162374556,
+            -0.0016232906084494019,
+            0.0019024894065470237,
+            0.0010445588079614119,
+            0.0011442572211078153,
+            -0.0014875454692978166,
+            -0.00019845624841773147,
+            -0.000516807903069675,
+            0.0017070599553944074,
+            0.0005754604803226581
+          ]
+        },
+        "reset_profile": "exo.reset-perturbation.basic.v1",
+        "robot": "exo.h1-locomotion.v1",
+        "seed": 42,
+        "stop_average_speed_mps": 0.08291874988963789,
+        "time_seconds": 16.76000000000159
+      },
+      "id": "CQ-005",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "error_limit_radians": 0.2,
+        "trials": [
+          {
+            "actual_radians": 1.4947343525281012,
+            "error_radians": 0.0760619742667954,
+            "fallen": false,
+            "target_radians": 1.5707963267948966
+          },
+          {
+            "actual_radians": -1.491443945231773,
+            "error_radians": 0.07935238156312363,
+            "fallen": false,
+            "target_radians": -1.5707963267948966
+          },
+          {
+            "actual_radians": 3.0653054002225724,
+            "error_radians": 0.07628725336722075,
+            "fallen": false,
+            "target_radians": 3.141592653589793
+          }
+        ]
+      },
+      "id": "CQ-006",
+      "status": "PASS"
+    },
+    {
+      "evidence": {
+        "disturbance_displacement_meters": 0.1867814893114046,
+        "external_force_cleared": true,
+        "fallen": false,
+        "final_height_m": 1.036741499546538,
+        "final_tilt_rad": 0.0316286032035544,
+        "final_window_average_speed_mps": 0.16603917143296387,
+        "final_window_net_drift_meters": 0.08499055872175493,
+        "finite_state": true,
+        "maximum_final_tilt_rad": 1.0,
+        "maximum_final_window_average_speed_mps": 0.2,
+        "minimum_final_height_m": 0.62,
+        "name": "perturbation recovery / disturbance rejection",
+        "push_newtons": [
+          120.0,
+          0.0,
+          0.0
+        ],
+        "push_seconds": 0.1,
+        "recovery_seconds": 4.0,
+        "settle_seconds": 2.0
+      },
+      "id": "CQ-007",
+      "status": "PASS"
+    }
+  ],
+  "qualification_spec": {
+    "id": "exo.foundation-h1-locomotion.v1",
+    "sha256": "1a9764a30ccfc4e5307a7a8f3940a7ba07be7dbc4f820f3a2a693f49b010ddf6",
+    "version": "1.0.0"
+  },
+  "qualified": true,
+  "replay_integrity": {
+    "archive_receipt_path": "benchmark/qualification/evidence/BASIC-004-seed-0.exorun.sha256",
+    "archive_receipt_verified": true,
+    "archive_sha256": "dddab925a4a60fec655ae2f5767f803e3ab11af5952cd73db8b6668bf92db05c",
+    "determinism_digest": "7f1dc5812e4f33bd91a2be4760c5b353f9d6fdb5d36a8dce107dbf2c0dae401b",
+    "path": "benchmark/qualification/evidence/BASIC-004-seed-0.exorun",
+    "samples": 838,
+    "size_bytes": 261058,
+    "status": "PASS",
+    "verified_payloads": 11
+  },
+  "reset_profile": {
+    "id": "exo.reset-perturbation.basic.v1",
+    "sha256": "0e3013f153ffb542eef55375f80455257e4461969c265a7d32ee49420e104d85"
+  },
+  "schema_version": "exo.qualification.v1"
+}
