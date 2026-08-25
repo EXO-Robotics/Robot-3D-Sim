@@ -9,7 +9,7 @@ async function sha256(value: Uint8Array): Promise<string> {
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
-async function fixture(tamper = false): Promise<Uint8Array> {
+async function fixture(tamper = false, omitManifestHash = false): Promise<Uint8Array> {
   const float = (values: number[]) => new Uint8Array(new Float32Array(values).buffer);
   const payloads: Record<string, Uint8Array> = {
     "metrics.json": encoder.encode('{"passed":true}\n'),
@@ -43,13 +43,22 @@ async function fixture(tamper = false): Promise<Uint8Array> {
   const contents = Object.fromEntries(
     await Promise.all(Object.entries(payloads).map(async ([name, value]) => [name, await sha256(value)])),
   );
+  if (omitManifestHash) delete contents["trace/actions.f32"];
   if (tamper) payloads["replay/qpos.f32"] = float([9, 9]);
   const manifest = {
     schema_version: "exo.run.v1",
-    robot: { id: "exo.h1.v1", tree_sha256: "a".repeat(64) },
+    robot: { id: "exo.h1-locomotion.v1", tree_sha256: "a".repeat(64) },
     controller: { id: "exo.h1.velocity.v1", policy_sha256: "b".repeat(64) },
     course: { id: "BASIC-001@1.0.0", sha256: "c".repeat(64) },
+    exo_bench: { commit: "e".repeat(40), dirty: false, source_tree_sha256: "f".repeat(64) },
+    environment: { python: "3.12.11" },
     seed: 42,
+    reset_profile: {
+      id: "exo.reset-perturbation.basic.v1",
+      sha256: "9".repeat(64),
+      applied: {},
+    },
+    determinism: { class: "EXACT-SAME-RUNTIME", digest_schema: "exo.episode-digest.v2" },
     determinism_digest: "d".repeat(64),
     contents,
   };
@@ -59,7 +68,7 @@ async function fixture(tamper = false): Promise<Uint8Array> {
 describe("EXO run browser loader", () => {
   it("loads an integrity-checked scientific trace and visual replay", async () => {
     const run = await loadExoRun(await fixture());
-    expect(run.manifest.robot.id).toBe("exo.h1.v1");
+    expect(run.manifest.robot.id).toBe("exo.h1-locomotion.v1");
     expect(Array.from(run.trace.commands)).toEqual([0.5, 0, 0]);
     expect(Array.from(run.replay.qpos)).toEqual([1, 2]);
   });
@@ -67,5 +76,8 @@ describe("EXO run browser loader", () => {
   it("rejects a payload changed after the manifest was signed", async () => {
     await expect(loadExoRun(await fixture(true))).rejects.toThrow("integrity failure");
   });
-});
 
+  it("rejects a manifest that omits a required payload hash", async () => {
+    await expect(loadExoRun(await fixture(false, true))).rejects.toThrow("complete v1 payload set");
+  });
+});

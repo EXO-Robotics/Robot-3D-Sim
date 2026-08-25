@@ -31,7 +31,7 @@ def _print_result(result: RunResult) -> None:
 
 
 def _run(args: argparse.Namespace) -> int:
-    runner = BenchmarkRunner.from_aliases(args.robot, args.controller, args.course)
+    runner = BenchmarkRunner.from_aliases(args.robot, args.controller, args.course, args.reset_profile)
     output = Path(args.record).resolve() if args.record else None
     result = runner.run(seed=args.seed, record_path=output)
     if args.verify_determinism:
@@ -47,9 +47,25 @@ def _run(args: argparse.Namespace) -> int:
 
 
 def _replay(args: argparse.Namespace) -> int:
-    summary = inspect_replay(Path(args.path).resolve())
+    summary = inspect_replay(
+        Path(args.path).resolve(),
+        require_archive_receipt=args.require_archive_receipt,
+    )
     if args.json:
-        print(json.dumps({"manifest": summary.manifest, "metrics": summary.metrics}, indent=2, sort_keys=True))
+        print(
+            json.dumps(
+                {
+                    "manifest": summary.manifest,
+                    "metrics": summary.metrics,
+                    "verified_files": summary.verified_files,
+                    "samples": summary.samples,
+                    "archive_sha256": summary.archive_sha256,
+                    "archive_receipt_verified": summary.archive_receipt_verified,
+                },
+                indent=2,
+                sort_keys=True,
+            )
+        )
     else:
         print("EXO BENCH REPLAY")
         print(f"File         {summary.path}")
@@ -58,12 +74,15 @@ def _replay(args: argparse.Namespace) -> int:
         print(f"Course       {summary.manifest['course']['id']}")
         print(f"Result       {'PASS' if summary.metrics['passed'] else 'FAIL'}")
         print(f"Verified     {summary.verified_files} content files")
+        print(f"Archive SHA  {summary.archive_sha256}")
+        print(f"Sidecar      {'VERIFIED' if summary.archive_receipt_verified else 'NOT PRESENT'}")
         print(f"Digest       {summary.manifest['determinism_digest']}")
     return 0
 
 
 def _qualify(args: argparse.Namespace) -> int:
-    report = ChassisQualifier(args.robot, args.controller).qualify()
+    evidence_dir = Path(args.evidence_dir).resolve() if args.evidence_dir else None
+    report = ChassisQualifier(args.robot, args.controller).qualify(evidence_dir=evidence_dir)
     if args.output:
         write_qualification(report, Path(args.output).resolve())
     print(json.dumps(report, indent=2, sort_keys=True))
@@ -71,7 +90,7 @@ def _qualify(args: argparse.Namespace) -> int:
 
 
 def _verify(args: argparse.Namespace) -> int:
-    artifacts = ArtifactRegistry().resolve(args.robot, args.controller, args.course)
+    artifacts = ArtifactRegistry().resolve(args.robot, args.controller, args.course, args.reset_profile)
     hashes = ArtifactRegistry.verify_hashes(artifacts)
     print(json.dumps(hashes, indent=2, sort_keys=True))
     return 0
@@ -86,6 +105,7 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--robot", default="h1")
     run.add_argument("--controller", default="baseline")
     run.add_argument("--seed", type=int, default=42)
+    run.add_argument("--reset-profile", default="basic")
     run.add_argument("--record")
     run.add_argument("--verify-determinism", action="store_true")
     run.add_argument("--json", action="store_true")
@@ -93,6 +113,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     replay = commands.add_parser("replay", help="Validate and inspect an .exorun trajectory")
     replay.add_argument("path")
+    replay.add_argument("--require-archive-receipt", action="store_true")
     replay.add_argument("--json", action="store_true")
     replay.set_defaults(function=_replay)
 
@@ -100,12 +121,14 @@ def build_parser() -> argparse.ArgumentParser:
     qualify.add_argument("--robot", default="h1")
     qualify.add_argument("--controller", default="baseline")
     qualify.add_argument("--output")
+    qualify.add_argument("--evidence-dir")
     qualify.set_defaults(function=_qualify)
 
     verify = commands.add_parser("verify-artifacts", help="Verify pinned artifact hashes")
     verify.add_argument("--robot", default="h1")
     verify.add_argument("--controller", default="baseline")
     verify.add_argument("--course", default="BASIC-001")
+    verify.add_argument("--reset-profile", default="basic")
     verify.set_defaults(function=_verify)
     return parser
 

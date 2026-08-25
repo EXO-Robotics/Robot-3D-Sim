@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exo-robotics.github.io/Robot-3D-Sim/schemas/qualification-receipt.schema.json",
+  "title": "EXO Foundation qualification receipt v1",
+  "type": "object",
+  "required": ["schema_version", "qualification_spec", "candidate", "exo_bench", "environment", "artifacts", "reset_profile", "courses", "determinism", "collision_metric", "gates", "basic_matrix", "replay_integrity", "foundation_checks", "qualified"],
+  "properties": {
+    "schema_version": { "const": "exo.qualification.v1" },
+    "qualification_spec": { "type": "object" },
+    "candidate": { "type": "object" },
+    "exo_bench": { "type": "object" },
+    "environment": { "type": "object" },
+    "artifacts": { "type": "object" },
+    "reset_profile": { "type": "object" },
+    "courses": { "type": "object" },
+    "determinism": { "type": "object" },
+    "collision_metric": { "type": "object" },
+    "gates": { "type": "array", "minItems": 7, "maxItems": 7 },
+    "basic_matrix": { "type": "object" },
+    "replay_integrity": { "type": "object" },
+    "foundation_checks": { "type": "object" },
+    "qualified": { "type": "boolean" }
+  }
+}

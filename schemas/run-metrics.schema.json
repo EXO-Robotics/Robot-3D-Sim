@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exo-robotics.github.io/Robot-3D-Sim/schemas/run-metrics.schema.json",
+  "title": "EXO run metrics v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["passed", "reason", "time_seconds", "progress_meters", "falls", "collisions", "energy_joules", "peak_torque_nm", "final_speed_mps", "stop_average_speed_mps"],
+  "properties": {
+    "passed": { "type": "boolean" },
+    "reason": { "type": "string" },
+    "time_seconds": { "type": "number" },
+    "progress_meters": { "type": "number" },
+    "falls": { "type": "integer", "minimum": 0 },
+    "collisions": { "type": ["integer", "null"], "minimum": 0 },
+    "energy_joules": { "type": "number" },
+    "peak_torque_nm": { "type": "number" },
+    "final_speed_mps": { "type": "number" },
+    "stop_average_speed_mps": { "type": ["number", "null"] }
+  }
+}

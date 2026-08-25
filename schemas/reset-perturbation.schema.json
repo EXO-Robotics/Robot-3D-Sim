@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exo-robotics.github.io/Robot-3D-Sim/schemas/reset-perturbation.schema.json",
+  "title": "EXO deterministic reset perturbation profile v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "profile_id", "description", "base_xy_uniform_m", "base_yaw_uniform_rad", "joint_position_uniform_rad"],
+  "properties": {
+    "schema_version": { "const": "exo.reset-perturbation.v1" },
+    "profile_id": { "pattern": "^exo\\.reset-perturbation\\.[a-z0-9-]+\\.v[0-9]+$" },
+    "description": { "type": "string" },
+    "base_xy_uniform_m": { "type": "number", "minimum": 0 },
+    "base_yaw_uniform_rad": { "type": "number", "minimum": 0 },
+    "joint_position_uniform_rad": { "type": "number", "minimum": 0 }
+  }
+}

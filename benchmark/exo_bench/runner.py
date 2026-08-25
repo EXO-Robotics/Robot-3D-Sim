@@ -9,6 +9,7 @@ import numpy as np
 from .course import CourseRuntime
 from .environment import NativeH1Environment
 from .policy import TorchScriptVelocityPolicy
+from .provenance import git_provenance, runtime_provenance
 from .recorder import EpisodeRecorder
 from .registry import ArtifactRegistry, ResolvedArtifacts
 
@@ -24,13 +25,17 @@ class RunResult:
     time_seconds: float
     progress_meters: float
     falls: int
-    collisions: int
+    collisions: int | None
     energy_joules: float
     peak_torque_nm: float
     final_speed_mps: float
     stop_average_speed_mps: float | None
     determinism_digest: str
     replay_path: str | None
+    archive_sha256: str | None
+    archive_receipt_path: str | None
+    reset_profile: str
+    reset_perturbation: dict[str, Any]
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -42,15 +47,20 @@ class BenchmarkRunner:
         self.artifact_hashes = ArtifactRegistry.verify_hashes(artifacts)
 
     @classmethod
-    def from_aliases(cls, robot: str, controller: str, course: str) -> "BenchmarkRunner":
-        return cls(ArtifactRegistry().resolve(robot, controller, course))
+    def from_aliases(
+        cls,
+        robot: str,
+        controller: str,
+        course: str,
+        reset_profile: str = "basic",
+    ) -> "BenchmarkRunner":
+        return cls(ArtifactRegistry().resolve(robot, controller, course, reset_profile))
 
     def run(
         self,
         seed: int,
         record_path: Path | None = None,
         course_override: dict | None = None,
-        joint_noise: float = 0.0,
     ) -> RunResult:
         course_spec = course_override or self.artifacts.course
         scene = self.artifacts.robot_dir / self.artifacts.robot["model"]["entrypoint"]
@@ -61,7 +71,7 @@ class BenchmarkRunner:
             self.artifacts.controller,
         )
         policy = TorchScriptVelocityPolicy(policy_path, self.artifacts.controller)
-        initial_state = environment.reset(seed=seed, joint_noise=joint_noise)
+        initial_state = environment.reset(seed=seed, reset_profile=self.artifacts.reset_profile)
         policy.reset()
         course = CourseRuntime.create(course_spec, initial_state)
         recorder = EpisodeRecorder(
@@ -95,12 +105,14 @@ class BenchmarkRunner:
             "time_seconds": state.time,
             "progress_meters": course.progress(state),
             "falls": falls,
-            "collisions": 0,
+            "collisions": None,
             "energy_joules": state.energy_joules,
             "peak_torque_nm": state.peak_torque,
             "final_speed_mps": state.planar_speed,
             "stop_average_speed_mps": course.stop_average_speed_mps,
         }
+        archive_sha256: str | None = None
+        archive_receipt_path: str | None = None
         if record_path is not None:
             run_manifest = {
                 "robot": {
@@ -124,10 +136,18 @@ class BenchmarkRunner:
                     "solver": int(environment.model.opt.solver),
                     "integrator": int(environment.model.opt.integrator),
                 },
+                "exo_bench": git_provenance(),
+                "environment": runtime_provenance(),
                 "seed": seed,
+                "reset_profile": {
+                    "id": self.artifacts.reset_profile_id,
+                    "sha256": self.artifact_hashes["reset_profile_sha256"],
+                    "applied": environment.last_reset_perturbation,
+                },
                 "sensor_profile": "state-privileged-v1",
             }
-            recorder.write(record_path, run_manifest, metrics)
+            archive_sha256, receipt_path = recorder.write(record_path, run_manifest, metrics)
+            archive_receipt_path = str(receipt_path)
         return RunResult(
             robot=self.artifacts.robot_id,
             controller=self.artifacts.controller_id,
@@ -138,11 +158,15 @@ class BenchmarkRunner:
             time_seconds=state.time,
             progress_meters=course.progress(state),
             falls=falls,
-            collisions=0,
+            collisions=None,
             energy_joules=state.energy_joules,
             peak_torque_nm=state.peak_torque,
             final_speed_mps=state.planar_speed,
             stop_average_speed_mps=course.stop_average_speed_mps,
             determinism_digest=digest,
             replay_path=str(record_path) if record_path is not None else None,
+            archive_sha256=archive_sha256,
+            archive_receipt_path=archive_receipt_path,
+            reset_profile=self.artifacts.reset_profile_id,
+            reset_perturbation=environment.last_reset_perturbation,
         )

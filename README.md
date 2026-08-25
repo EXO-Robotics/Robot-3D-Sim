@@ -7,6 +7,10 @@ also contains the native **EXO Bench** foundation for free-base, unassisted,
 replayable embodied-AI trials. See [`benchmark/README.md`](benchmark/README.md)
 and [`docs/EXO_BENCH_ARCHITECTURE.md`](docs/EXO_BENCH_ARCHITECTURE.md).
 
+The qualified native chassis is named `exo.h1-locomotion.v1` deliberately: it
+controls the ten H1 leg joints and does not claim whole-body or manipulation
+capability.
+
 ## Open the site
 
 On macOS, double-click **`Open Robot Field.command`**.

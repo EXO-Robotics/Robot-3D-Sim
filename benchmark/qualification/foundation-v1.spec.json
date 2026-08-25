@@ -1,0 +1,59 @@
+{
+  "schema_version": "exo.qualification-spec.v1",
+  "spec_id": "exo.foundation-h1-locomotion.v1",
+  "version": "1.0.0",
+  "candidate": {
+    "robot": "exo.h1-locomotion.v1",
+    "controller": "exo.h1.velocity.v1"
+  },
+  "chassis_gates": [
+    "CQ-001",
+    "CQ-002",
+    "CQ-003",
+    "CQ-004",
+    "CQ-005",
+    "CQ-006",
+    "CQ-007"
+  ],
+  "basic_matrix": {
+    "courses": [
+      "BASIC-001@1.0.0",
+      "BASIC-002@1.0.0",
+      "BASIC-003@1.0.0",
+      "BASIC-004@1.0.0"
+    ],
+    "seeds": [0, 1, 2, 3, 4],
+    "reset_profile": "exo.reset-perturbation.basic.v1",
+    "repeat_each": true
+  },
+  "determinism": {
+    "class": "EXACT-SAME-RUNTIME",
+    "claim": "Repeated execution with identical source, artifacts, dependency lock, runtime, architecture, seed, and reset profile produces the same canonical episode digest.",
+    "digest_schema": "exo.episode-digest.v2",
+    "digest_inputs": [
+      "times",
+      "observations",
+      "actions",
+      "commands",
+      "contacts",
+      "qpos",
+      "qvel",
+      "canonical_events"
+    ]
+  },
+  "disturbance_rejection": {
+    "settle_seconds": 2.0,
+    "push_newtons": [120.0, 0.0, 0.0],
+    "push_seconds": 0.1,
+    "recovery_seconds": 4.0,
+    "final_window_seconds": 1.0,
+    "minimum_final_height_m": 0.62,
+    "maximum_final_tilt_rad": 1.0,
+    "maximum_final_window_average_speed_mps": 0.2
+  },
+  "collision_metric": {
+    "status": "unavailable",
+    "representation": null,
+    "meaning": "null means not measured or not applicable; zero is reserved for a measured zero count"
+  }
+}

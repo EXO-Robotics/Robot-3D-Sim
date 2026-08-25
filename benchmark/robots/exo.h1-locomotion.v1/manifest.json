@@ -1,6 +1,6 @@
 {
   "schema_version": "exo.robot.v1",
-  "robot_id": "exo.h1.v1",
+  "robot_id": "exo.h1-locomotion.v1",
   "display_name": "Unitree H1 RL Gym locomotion chassis",
   "status": "qualified",
   "source": {

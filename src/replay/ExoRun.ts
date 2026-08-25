@@ -5,7 +5,11 @@ export interface ExoRunManifest {
   robot: { id: string; tree_sha256: string };
   controller: { id: string; policy_sha256: string };
   course: { id: string; sha256: string };
+  exo_bench: { commit: string; dirty: boolean; source_tree_sha256: string };
+  environment: Record<string, unknown>;
   seed: number;
+  reset_profile: { id: string; sha256: string; applied: Record<string, unknown> };
+  determinism: { class: "EXACT-SAME-RUNTIME"; digest_schema: "exo.episode-digest.v2" };
   determinism_digest: string;
   contents: Record<string, string>;
 }
@@ -36,6 +40,19 @@ export interface LoadedExoRun {
 }
 
 const decoder = new TextDecoder();
+const requiredPayloads = new Set([
+  "metrics.json",
+  "trace/index.json",
+  "trace/times.f32",
+  "trace/observations.f32",
+  "trace/actions.f32",
+  "trace/commands.f32",
+  "trace/contacts.f32",
+  "trace/events.jsonl",
+  "replay/index.json",
+  "replay/qpos.f32",
+  "replay/qvel.f32",
+]);
 
 function requiredFile(files: Record<string, Uint8Array>, name: string): Uint8Array {
   const value = files[name];
@@ -81,6 +98,20 @@ export async function loadExoRun(archive: ArrayBuffer | Uint8Array): Promise<Loa
   if (manifest.schema_version !== "exo.run.v1") {
     throw new Error(`Unsupported EXO run schema: ${manifest.schema_version}`);
   }
+  const contentNames = Object.keys(manifest.contents);
+  if (
+    contentNames.length !== requiredPayloads.size
+    || contentNames.some((name) => !requiredPayloads.has(name))
+  ) {
+    throw new Error("EXO run manifest does not hash the complete v1 payload set");
+  }
+  const archiveNames = new Set(Object.keys(files));
+  if (
+    archiveNames.size !== requiredPayloads.size + 1
+    || [...archiveNames].some((name) => name !== "manifest.json" && !requiredPayloads.has(name))
+  ) {
+    throw new Error("EXO run archive contains missing or unexpected v1 entries");
+  }
   for (const [name, expected] of Object.entries(manifest.contents)) {
     const actual = await sha256(requiredFile(files, name));
     if (actual !== expected) throw new Error(`EXO run integrity failure: ${name}`);
@@ -111,4 +142,3 @@ export async function loadExoRun(archive: ArrayBuffer | Uint8Array): Promise<Loa
     },
   };
 }
-

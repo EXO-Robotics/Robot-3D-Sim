@@ -10,5 +10,6 @@ __pycache__/
 .venv/
 .pytest_cache/
 *.exorun
+!benchmark/qualification/evidence/*.exorun
 benchmark/results/
 benchmark/qualification/results/

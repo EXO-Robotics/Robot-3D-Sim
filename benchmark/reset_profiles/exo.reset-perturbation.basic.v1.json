@@ -1,0 +1,8 @@
+{
+  "schema_version": "exo.reset-perturbation.v1",
+  "profile_id": "exo.reset-perturbation.basic.v1",
+  "description": "Conservative deterministic reset perturbations for BASIC locomotion qualification",
+  "base_xy_uniform_m": 0.002,
+  "base_yaw_uniform_rad": 0.005,
+  "joint_position_uniform_rad": 0.002
+}

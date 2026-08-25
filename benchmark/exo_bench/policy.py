@@ -9,6 +9,13 @@ import torch
 from .actuator import MotorCommand
 
 
+# The qualified v1 runtime is CPU-only and single-threaded. These settings are
+# part of the EXACT-SAME-RUNTIME determinism claim and are recorded in receipts.
+torch.set_num_threads(1)
+torch.set_num_interop_threads(1)
+torch.use_deterministic_algorithms(True)
+
+
 def gravity_orientation(quaternion_wxyz: np.ndarray) -> np.ndarray:
     qw, qx, qy, qz = quaternion_wxyz
     return np.asarray(
@@ -80,4 +87,3 @@ class TorchScriptVelocityPolicy:
             tau_ff=np.zeros(self.action_size, dtype=np.float64),
         )
         return action, command
-

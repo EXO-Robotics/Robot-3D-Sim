@@ -3,7 +3,7 @@
   "controller_id": "exo.h1.velocity.v1",
   "display_name": "Unitree H1 pretrained velocity policy",
   "status": "qualified",
-  "robot_id": "exo.h1.v1",
+  "robot_id": "exo.h1-locomotion.v1",
   "source": {
     "repository": "https://github.com/unitreerobotics/unitree_rl_gym",
     "commit": "276801e46c5d433564f24658bac64f254b7d2d4b",

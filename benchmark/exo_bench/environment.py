@@ -3,6 +3,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 import mujoco
 import numpy as np
@@ -46,6 +47,11 @@ class NativeH1Environment:
         self.energy_joules = 0.0
         self.peak_torque = 0.0
         self.last_torque = np.zeros(self.joint_count, dtype=np.float64)
+        self.last_reset_perturbation: dict[str, Any] = {
+            "base_xy_m": [0.0, 0.0],
+            "base_yaw_rad": 0.0,
+            "joint_position_rad": [0.0] * self.joint_count,
+        }
         self.floor_geom_id = mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_GEOM, "floor")
         self.foot_body_ids = np.asarray(
             [
@@ -64,18 +70,50 @@ class NativeH1Environment:
     def control_period(self) -> float:
         return self.timestep * self.decimation
 
-    def reset(self, seed: int, joint_noise: float = 0.0) -> SimulationState:
+    def reset(self, seed: int, reset_profile: dict | None = None) -> SimulationState:
         mujoco.mj_resetData(self.model, self.data)
         self.data.qpos[7:] = self.default_angles
-        if joint_noise > 0:
+        if reset_profile is not None:
+            xy_limit = self._nonnegative_limit(reset_profile, "base_xy_uniform_m")
+            yaw_limit = self._nonnegative_limit(reset_profile, "base_yaw_uniform_rad")
+            joint_limit = self._nonnegative_limit(reset_profile, "joint_position_uniform_rad")
             rng = np.random.default_rng(seed)
-            self.data.qpos[7:] += rng.uniform(-joint_noise, joint_noise, self.joint_count)
+            xy = rng.uniform(-xy_limit, xy_limit, 2)
+            yaw = float(rng.uniform(-yaw_limit, yaw_limit))
+            joint_offsets = rng.uniform(-joint_limit, joint_limit, self.joint_count)
+            self.data.qpos[:2] += xy
+            yaw_quaternion = np.asarray(
+                [math.cos(yaw / 2.0), 0.0, 0.0, math.sin(yaw / 2.0)],
+                dtype=np.float64,
+            )
+            rotated = np.empty(4, dtype=np.float64)
+            mujoco.mju_mulQuat(rotated, yaw_quaternion, self.data.qpos[3:7].copy())
+            self.data.qpos[3:7] = rotated
+            self.data.qpos[7:] += joint_offsets
+            self.last_reset_perturbation = {
+                "base_xy_m": xy.tolist(),
+                "base_yaw_rad": yaw,
+                "joint_position_rad": joint_offsets.tolist(),
+            }
+        else:
+            self.last_reset_perturbation = {
+                "base_xy_m": [0.0, 0.0],
+                "base_yaw_rad": 0.0,
+                "joint_position_rad": [0.0] * self.joint_count,
+            }
         self.data.ctrl[:] = 0
         self.energy_joules = 0.0
         self.peak_torque = 0.0
         self.last_torque.fill(0)
         mujoco.mj_forward(self.model, self.data)
         return self.state()
+
+    @staticmethod
+    def _nonnegative_limit(profile: dict, key: str) -> float:
+        value = float(profile[key])
+        if not math.isfinite(value) or value < 0:
+            raise ValueError(f"Reset profile {key} must be finite and nonnegative")
+        return value
 
     def advance(self, command: MotorCommand) -> SimulationState:
         for _ in range(self.decimation):
@@ -142,4 +180,3 @@ class NativeH1Environment:
             mujoco.mj_contactForce(self.model, self.data, contact_index, force)
             forces[int(matches[0])] += abs(float(force[0]))
         return forces
-

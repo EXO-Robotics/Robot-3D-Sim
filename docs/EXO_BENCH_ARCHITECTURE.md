@@ -37,7 +37,13 @@ Qualification binds a robot model and policy together:
 4. CQ-004 velocity tracking
 5. CQ-005 walk and stop
 6. CQ-006 turns
-7. CQ-007 external perturbation response
+7. CQ-007 perturbation recovery / disturbance rejection
 
-Only a pair passing every gate can receive a stable alias.
+Foundation v1 additionally requires BASIC-001 through BASIC-004 across five
+versioned seeded reset perturbations, with every case repeated exactly under the
+same pinned runtime. Only a pair passing every gate and every matrix case can
+receive a stable alias.
 
+The v1 determinism class is `EXACT-SAME-RUNTIME`; cross-platform bitwise
+determinism is not claimed. Collision counts remain unavailable (`null`) until
+a course provides an explicit allowed/task/violation contact classifier.
