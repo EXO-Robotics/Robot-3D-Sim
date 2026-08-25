@@ -1,0 +1,15 @@
+{
+  "schema_version": "exo.aliases.v1",
+  "robots": {
+    "h1": "exo.h1.v1"
+  },
+  "controllers": {
+    "baseline": "exo.h1.velocity.v1"
+  },
+  "courses": {
+    "basic-stand": "BASIC-001@1.0.0",
+    "basic-walk": "BASIC-002@1.0.0",
+    "basic-walk-stop": "BASIC-003@1.0.0",
+    "basic-turn-walk-stop": "BASIC-004@1.0.0"
+  }
+}

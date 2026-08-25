@@ -1,0 +1,10 @@
+{
+  "schema_version": "exo.course.v1",
+  "course_id": "BASIC-002",
+  "version": "1.0.0",
+  "name": "Walk 5 m",
+  "task": "walk",
+  "limits": { "time_seconds": 20.0, "max_falls": 0 },
+  "command": { "velocity": [0.5, 0.0, 0.0] },
+  "success": { "minimum_progress_meters": 5.0 }
+}

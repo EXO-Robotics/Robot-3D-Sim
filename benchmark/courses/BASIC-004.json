@@ -1,0 +1,20 @@
+{
+  "schema_version": "exo.course.v1",
+  "course_id": "BASIC-004",
+  "version": "1.0.0",
+  "name": "Turn 90 degrees, walk 3 m, and stop",
+  "task": "turn_walk_stop",
+  "limits": { "time_seconds": 35.0, "max_falls": 0 },
+  "command": {
+    "turn": [0.0, 0.0, 0.5],
+    "walk": [0.5, 0.0, 0.0]
+  },
+  "success": {
+    "turn_radians": 1.5707963267948966,
+    "turn_tolerance_radians": 0.15,
+    "minimum_progress_meters": 3.0,
+    "stop_speed_mps": 0.15,
+    "stop_hold_seconds": 2.0,
+    "stop_zone_tolerance_meters": 0.75
+  }
+}

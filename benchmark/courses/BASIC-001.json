@@ -1,0 +1,10 @@
+{
+  "schema_version": "exo.course.v1",
+  "course_id": "BASIC-001",
+  "version": "1.0.0",
+  "name": "Stand",
+  "task": "stand",
+  "limits": { "time_seconds": 10.0, "max_falls": 0 },
+  "command": { "velocity": [0.0, 0.0, 0.0] },
+  "success": { "minimum_upright_seconds": 10.0 }
+}

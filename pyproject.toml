@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "exo-bench"
+version = "0.1.0"
+description = "Deterministic native MuJoCo benchmark runner for EXO embodied-AI trials"
+readme = "benchmark/README.md"
+requires-python = ">=3.11,<3.14"
+license = { text = "MIT" }
+dependencies = [
+  "mujoco==3.3.6",
+  "numpy==2.2.6",
+  "torch==2.7.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==8.4.1"]
+
+[project.scripts]
+exo-bench = "exo_bench.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["benchmark/exo_bench"]
+
+[tool.pytest.ini_options]
+testpaths = ["benchmark/tests"]
+addopts = "-q"
+

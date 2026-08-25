@@ -8,12 +8,15 @@
     "dev": "vite",
     "open": "vite --open --host 127.0.0.1",
     "build": "tsc -b && vite build",
+    "benchmark:test": ".venv/bin/pytest",
+    "benchmark:qualify": ".venv/bin/exo-bench qualify",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {
     "@mujoco/mujoco": "3.12.0",
+    "fflate": "0.8.2",
     "three": "0.180.0"
   },
   "devDependencies": {

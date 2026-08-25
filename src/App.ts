@@ -364,7 +364,7 @@ export class App {
       <div class="app-shell">
         <header class="topbar">
           <div class="brand"><span class="brand__mark">H1</span><span>HUMANOID ROBOT GAMES</span></div>
-          <div class="event-title"><span>FIELD MODE</span><strong>OPEN WORLD / AUTONOMOUS</strong></div>
+          <div class="event-title"><span>ASSISTED LAB</span><strong>OPEN FIELD / TRAINER</strong></div>
           <div class="system-state"><span id="phase-dot" class="status-dot status-dot--loading"></span><span id="phase-label">LOADING</span><small>MUJOCO 3.12 / WASM</small></div>
         </header>
 
@@ -403,7 +403,7 @@ export class App {
 
           <aside class="inspector">
             <nav class="panel-tabs" aria-label="Inspector panels">
-              <button class="panel-tab panel-tab--active" data-panel="lab">ROBOT LAB</button>
+              <button class="panel-tab panel-tab--active" data-panel="lab">ASSISTED LAB</button>
               <button class="panel-tab" data-panel="code">CONTROLLER</button>
             </nav>
             <div id="lab-panel" class="inspector-panel inspector-panel--active">

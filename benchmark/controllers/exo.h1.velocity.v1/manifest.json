@@ -1,0 +1,38 @@
+{
+  "schema_version": "exo.controller.v1",
+  "controller_id": "exo.h1.velocity.v1",
+  "display_name": "Unitree H1 pretrained velocity policy",
+  "status": "qualified",
+  "robot_id": "exo.h1.v1",
+  "source": {
+    "repository": "https://github.com/unitreerobotics/unitree_rl_gym",
+    "commit": "276801e46c5d433564f24658bac64f254b7d2d4b",
+    "policy_path": "deploy/pre_train/h1/motion.pt",
+    "config_path": "deploy/deploy_mujoco/configs/h1.yaml",
+    "license": "BSD-3-Clause"
+  },
+  "policy": {
+    "path": "motion.pt",
+    "sha256": "44a0fbceb81f3877833ae9a398d039bea1759cb0d3c8188181013885f70589eb",
+    "format": "torchscript",
+    "observation_size": 41,
+    "action_size": 10,
+    "control_decimation": 10,
+    "control_period": 0.02
+  },
+  "upstream_config": {
+    "path": "upstream-h1.yaml",
+    "sha256": "4e509fa63fda52e38d21d9f1924b7c0d6bf9dfd1c2d9b94450b7f6e7ca281329"
+  },
+  "runtime": {
+    "kp": [150, 150, 150, 200, 40, 150, 150, 150, 200, 40],
+    "kd": [2, 2, 2, 4, 2, 2, 2, 2, 4, 2],
+    "default_angles": [0, 0, -0.1, 0.3, -0.2, 0, 0, -0.1, 0.3, -0.2],
+    "angular_velocity_scale": 0.25,
+    "joint_position_scale": 1.0,
+    "joint_velocity_scale": 0.05,
+    "action_scale": 0.25,
+    "command_scale": [2.0, 2.0, 0.25],
+    "gait_period": 0.8
+  }
+}

@@ -2,6 +2,11 @@
 
 A client-side humanoid robotics sandbox powered by MuJoCo WebAssembly and Three.js. The robot can explore a large X/Y field, steer around physical obstacles, follow an editable autonomous controller, and expose live engineering telemetry.
 
+This browser experience is now explicitly the **Assisted Lab**. The repository
+also contains the native **EXO Bench** foundation for free-base, unassisted,
+replayable embodied-AI trials. See [`benchmark/README.md`](benchmark/README.md)
+and [`docs/EXO_BENCH_ARCHITECTURE.md`](docs/EXO_BENCH_ARCHITECTURE.md).
+
 ## Open the site
 
 On macOS, double-click **`Open Robot Field.command`**.
@@ -103,4 +108,6 @@ through a localhost-only bridge. Rebuild the visual GLB with
 
 This is real rigid-body/contact simulation, but the first open-field model remains an assisted trainer. Root pitch, roll, height, and planar pace are stabilized so it is immediately navigable. It is not evidence of unassisted 3D balance, dynamically generated running, terrain perception, reinforcement learning, hardware transfer, or physical-robot validation.
 
-The next physics milestone is a free-root 26-actuator humanoid that replaces the trainer assists with learned or model-based balance while preserving this controller and sensor API.
+The Assisted Lab remains frozen as an interactive trainer. Authoritative
+free-root benchmark work happens in EXO Bench and does not reuse its trainer
+actuators or claim that the browser controller is unassisted locomotion.

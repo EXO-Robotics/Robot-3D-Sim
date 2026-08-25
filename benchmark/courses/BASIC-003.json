@@ -1,0 +1,15 @@
+{
+  "schema_version": "exo.course.v1",
+  "course_id": "BASIC-003",
+  "version": "1.0.0",
+  "name": "Walk 5 m and stop",
+  "task": "walk_stop",
+  "limits": { "time_seconds": 25.0, "max_falls": 0 },
+  "command": { "velocity": [0.5, 0.0, 0.0] },
+  "success": {
+    "minimum_progress_meters": 5.0,
+    "stop_speed_mps": 0.15,
+    "stop_hold_seconds": 2.0,
+    "stop_zone_tolerance_meters": 0.75
+  }
+}

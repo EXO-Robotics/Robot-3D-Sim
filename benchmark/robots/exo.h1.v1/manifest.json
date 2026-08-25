@@ -1,0 +1,55 @@
+{
+  "schema_version": "exo.robot.v1",
+  "robot_id": "exo.h1.v1",
+  "display_name": "Unitree H1 RL Gym locomotion chassis",
+  "status": "qualified",
+  "source": {
+    "repository": "https://github.com/unitreerobotics/unitree_rl_gym",
+    "commit": "276801e46c5d433564f24658bac64f254b7d2d4b",
+    "path": "resources/robots/h1",
+    "license": "BSD-3-Clause",
+    "license_file": "../../third_party/unitree_rl_gym/LICENSE"
+  },
+  "model": {
+    "entrypoint": "model/scene.xml",
+    "entrypoint_sha256": "88ffcccad2c5df71a7472b4b30ec7e4ea06e045efc6b4e11ccd8bebc2848f0b3",
+    "model_xml_sha256": "2bee8abddbf4bc093bcdb2266c7139cd1c78e279bf65f7ee9fde41fe599900d4",
+    "tree_sha256": "12c7d68fabc0f24e7ce5ed46697cc41ccdce41eebe464b87201179a3b0a0136a",
+    "physics_timestep": 0.002,
+    "expected_actuated_dof": 10,
+    "expected_nq": 17,
+    "expected_nv": 16,
+    "expected_actuators": 10,
+    "free_base": true,
+    "trainer_actuators_forbidden": [
+      "balance_pitch",
+      "balance_roll",
+      "pace_x",
+      "pace_y",
+      "turn_drive",
+      "balance_height"
+    ]
+  },
+  "actuator": {
+    "mode": "pd_ff",
+    "transmission": "direct_joint",
+    "joint_order": [
+      "left_hip_yaw_joint",
+      "left_hip_roll_joint",
+      "left_hip_pitch_joint",
+      "left_knee_joint",
+      "left_ankle_joint",
+      "right_hip_yaw_joint",
+      "right_hip_roll_joint",
+      "right_hip_pitch_joint",
+      "right_knee_joint",
+      "right_ankle_joint"
+    ],
+    "torque_limits": [200, 200, 200, 300, 40, 200, 200, 200, 300, 40],
+    "velocity_limits": null,
+    "kp_range": [0, 300],
+    "kd_range": [0, 20],
+    "feedforward_torque_allowed": true
+  },
+  "benchmark_compatibility": "exo-bench-v1"
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exo-robotics.github.io/Robot-3D-Sim/schemas/agent-action.schema.json",
+  "title": "EXO Agent action v1",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "vx", "vy", "yaw_rate"],
+      "properties": {
+        "type": { "const": "velocity" },
+        "vx": { "type": "number" },
+        "vy": { "type": "number" },
+        "yaw_rate": { "type": "number" }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "skill"],
+      "properties": {
+        "type": { "const": "skill" },
+        "skill": { "type": "string" },
+        "target": { "type": ["string", "null"] }
+      }
+    }
+  ]
+}

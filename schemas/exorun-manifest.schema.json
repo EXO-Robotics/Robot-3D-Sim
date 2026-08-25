@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://exo-robotics.github.io/Robot-3D-Sim/schemas/exorun-manifest.schema.json",
+  "title": "EXO run manifest v1",
+  "type": "object",
+  "required": ["schema_version", "robot", "controller", "course", "engine", "seed", "runner", "determinism_digest", "contents"],
+  "properties": {
+    "schema_version": { "const": "exo.run.v1" },
+    "robot": { "type": "object" },
+    "controller": { "type": "object" },
+    "course": { "type": "object" },
+    "engine": { "type": "object" },
+    "seed": { "type": "integer" },
+    "runner": { "type": "object" },
+    "determinism_digest": { "pattern": "^[a-f0-9]{64}$" },
+    "contents": { "type": "object", "additionalProperties": { "pattern": "^[a-f0-9]{64}$" } }
+  }
+}
